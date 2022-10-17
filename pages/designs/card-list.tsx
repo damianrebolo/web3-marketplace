@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 
-const TestPage: NextPage = () => (
+const CardsPage: NextPage = () => (
   <section className="md:h-full flex items-center text-gray-600">
     <div className="max-w-7xl px-5 py-24 mx-auto">
       <div className="flex flex-wrap -m-4">
@@ -505,4 +505,4 @@ const TestPage: NextPage = () => (
   </section>
 );
 
-export default TestPage;
+export default CardsPage;
