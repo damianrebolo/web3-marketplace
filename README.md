@@ -2,6 +2,8 @@
 
 ## Marketplace
 
+![](/assets/images/ducks-portfolio.png)
+
 ### Introduction
 
 I implement the following features:
@@ -56,6 +58,4 @@ To mint NFTs:
 - Create **.env.local** file on the root folder, copy the ENV variable from **.env.example** and copy the Marketplace contract from thirdweb.
 - Run: `npm install`
 - Run: `npm run dev`
-- Enjoy, this is mine:
-
-  ![](/assets/images/ducks-portfolio.png)
+- Enjoy it!!
