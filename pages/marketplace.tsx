@@ -5,7 +5,6 @@ import {
   useAddress,
   useContract,
   ConnectWallet,
-  useListings,
   useActiveListings,
 } from "@thirdweb-dev/react";
 import { BigNumberish } from "ethers";
