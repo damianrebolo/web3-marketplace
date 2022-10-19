@@ -9,14 +9,14 @@ import {
 } from "@thirdweb-dev/react";
 import { BigNumberish } from "ethers";
 
-import { EtherIcon } from "../components/shared/icons";
+import { EtherIcon, UserIcon } from "../components/shared/icons";
 import { Error, Loading } from "../components/shared/ui";
 
 const MarketplacePage: NextPage = () => {
   const address = useAddress();
 
   const { contract } = useContract(
-    process.env.NEXT_PUBLIC_TW_COL_ADDRESS,
+    process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS,
     "marketplace"
   );
   const { data: listings, isLoading, error } = useListings(contract);
@@ -44,7 +44,7 @@ const MarketplacePage: NextPage = () => {
 
   return (
     <section className="md:h-full flex items-center text-gray-600">
-      <div className="max-w-7xl px-5 py-24 mx-auto">
+      <div className="max-w-7xl px-5 py-24 mx-auto w-full">
         <div className="flex flex-wrap -m-4">
           {listings?.map((listing) => (
             <div key={listing.id} className="p-4 sm:w-1/2 lg:w-1/3 w-full">
@@ -58,9 +58,15 @@ const MarketplacePage: NextPage = () => {
                   />
                 </div>
                 <div className="p-6 hover:bg-indigo-50 hover:text-black transition duration-300 ease-in">
-                  <h1 className="text-2xl font-semibold mb-3 uppercase">
+                  <h3 className="text-2xl font-semibold mb-3 uppercase">
                     {listing?.asset?.name}
-                  </h1>
+                  </h3>
+                  <h4 className="flex justify-start items-center flex-nowrap mb-3">
+                    <UserIcon />
+                    <span className="ml-2 truncate text-xs">
+                      {listing?.sellerAddress}
+                    </span>
+                  </h4>
 
                   <div className="flex justify-between items-center flex-wrap ">
                     <button
