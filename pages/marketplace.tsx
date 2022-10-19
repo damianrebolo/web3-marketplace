@@ -6,6 +6,7 @@ import {
   useContract,
   ConnectWallet,
   useListings,
+  useActiveListings,
 } from "@thirdweb-dev/react";
 import { BigNumberish } from "ethers";
 
@@ -19,7 +20,7 @@ const MarketplacePage: NextPage = () => {
     process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS,
     "marketplace"
   );
-  const { data: listings, isLoading, error } = useListings(contract);
+  const { data: listings, isLoading, error } = useActiveListings(contract);
 
   const onBuyNFT = async (tokenId: BigNumberish) => {
     try {
