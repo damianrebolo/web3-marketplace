@@ -6,10 +6,10 @@ import { CardBody, CardImage } from "../../shared/ui";
 import { Marketplace } from "@thirdweb-dev/sdk";
 
 interface Props {
-  name: string;
-  image: string;
+  name: string | number | undefined;
+  image: string | null | undefined;
   sellerAddress: string;
-  tokenId: string;
+  tokenId: BigNumberish;
   currencyValue: string;
   contract: Marketplace | undefined;
 }
@@ -25,11 +25,14 @@ export const MarketplaceCard: React.FC<Props> = ({ name, image, sellerAddress, t
 
   return (
     <div className="shadow-lg border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-      <CardImage>
-        <Image src={image} alt="Picture of the author" layout="fill" className="object-cover object-center" />
-      </CardImage>
+      {image && (
+        <CardImage>
+          <Image src={image} alt="Picture of the author" layout="fill" className="object-cover object-center" />
+        </CardImage>
+      )}
       <CardBody>
-        <h3 className="text-2xl font-semibold mb-3 uppercase">{name}</h3>
+        {name && <h3 className="text-2xl font-semibold mb-3 uppercase">{name}</h3>}
+
         <h4 className="flex justify-start items-center flex-nowrap mb-3">
           <UserIcon />
           <span className="ml-2 truncate text-xs">{sellerAddress}</span>

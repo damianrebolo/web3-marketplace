@@ -20,9 +20,9 @@ const MarketplacePage: NextPage = () => {
   return (
     <Container>
       <ActiveListings>
-        {({ listings, contract }) => (
+        {(listings, contract) => (
           <GridContainer>
-            {listings.map((listing) => (
+            {listings?.map((listing) => (
               <CardContainer key={listing?.id}>
                 <MarketplaceCard
                   image={listing?.asset?.image}
