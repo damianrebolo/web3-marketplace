@@ -2,7 +2,7 @@
 
 ## Marketplace
 
-![](/assets/images/ducks-portfolio.png)
+![](/assets/ducks-portfolio.png)
 
 ### Introduction
 
