@@ -25,8 +25,8 @@ const MarketplacePage: NextPage = () => {
             {listings?.map((listing) => (
               <CardContainer key={listing?.id}>
                 <MarketplaceCard
-                  image={listing?.asset?.image}
                   contract={contract}
+                  image={listing?.asset?.image}
                   name={listing?.asset?.name}
                   currencyValue={listing?.buyoutCurrencyValuePerToken?.displayValue}
                   sellerAddress={listing?.sellerAddress}
