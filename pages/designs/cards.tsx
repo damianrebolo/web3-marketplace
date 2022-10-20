@@ -16,16 +16,11 @@ const CardsPage: NextPage = () => (
               />
             </div>
             <div className="p-6 hover:bg-indigo-700 hover:text-white transition duration-300 ease-in">
-              <h2 className="text-base font-medium text-indigo-300 mb-1">
-                October 29, 2021
-              </h2>
-              <h1 className="text-2xl font-semibold mb-3">
-                Cities are crowded
-              </h1>
+              <h2 className="text-base font-medium text-indigo-300 mb-1">October 29, 2021</h2>
+              <h1 className="text-2xl font-semibold mb-3">Cities are crowded</h1>
               <p className="leading-relaxed mb-3">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-                modi, expedita quos doloremque autem ipsum itaque incidunt ipsam
-                reprehenderit fuga! Dolores quisquam eius cum accusamus?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam modi, expedita quos doloremque autem ipsum itaque incidunt
+                ipsam reprehenderit fuga! Dolores quisquam eius cum accusamus?
               </p>
               <div className="flex items-center flex-wrap ">
                 <a className="text-indigo-300 inline-flex items-center md:mb-2 lg:mb-0">
@@ -79,24 +74,14 @@ const CardsPage: NextPage = () => (
         <div className="p-4 sm:w-1/2 lg:w-1/3">
           <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
             <div className="h-56 lg:h-72 md:h-56 w-full relative">
-              <Image
-                layout="fill"
-                className="object-cover object-center"
-                src="https://picsum.photos/id/1016/720/400"
-                alt="blog"
-              />
+              <Image layout="fill" className="object-cover object-center" src="https://picsum.photos/id/1016/720/400" alt="blog" />
             </div>
             <div className="p-6 hover:bg-indigo-700 hover:text-white transition duration-300 ease-in">
-              <h2 className="text-base font-medium text-indigo-300 mb-1">
-                October 29, 2021
-              </h2>
-              <h1 className="text-2xl font-semibold mb-3">
-                Mountains are alone
-              </h1>
+              <h2 className="text-base font-medium text-indigo-300 mb-1">October 29, 2021</h2>
+              <h1 className="text-2xl font-semibold mb-3">Mountains are alone</h1>
               <p className="leading-relaxed mb-3">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-                modi, expedita quos doloremque autem ipsum itaque incidunt ipsam
-                reprehenderit fuga! Dolores quisquam eius cum accusamus?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam modi, expedita quos doloremque autem ipsum itaque incidunt
+                ipsam reprehenderit fuga! Dolores quisquam eius cum accusamus?
               </p>
               <div className="flex items-center flex-wrap ">
                 <a className="text-indigo-300 inline-flex items-center md:mb-2 lg:mb-0">
@@ -158,14 +143,11 @@ const CardsPage: NextPage = () => (
               />
             </div>
             <div className="p-6 hover:bg-indigo-700 hover:text-white transition duration-300 ease-in">
-              <h2 className="text-base font-medium text-indigo-300 mb-1">
-                October 29, 2021
-              </h2>
+              <h2 className="text-base font-medium text-indigo-300 mb-1">October 29, 2021</h2>
               <h1 className="text-2xl font-semibold mb-3">Lakes are silent</h1>
               <p className="leading-relaxed mb-3">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-                modi, expedita quos doloremque autem ipsum itaque incidunt ipsam
-                reprehenderit fuga! Dolores quisquam eius cum accusamus?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam modi, expedita quos doloremque autem ipsum itaque incidunt
+                ipsam reprehenderit fuga! Dolores quisquam eius cum accusamus?
               </p>
               <div className="flex items-center flex-wrap ">
                 <a className="text-indigo-300 inline-flex items-center md:mb-2 lg:mb-0">
@@ -219,24 +201,14 @@ const CardsPage: NextPage = () => (
         <div className="p-4 sm:w-1/2 lg:w-1/3">
           <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
             <div className="h-56 lg:h-72 md:h-56 w-full relative">
-              <Image
-                layout="fill"
-                className="object-cover object-center"
-                src="https://picsum.photos/id/189/720/400"
-                alt="blog"
-              />
+              <Image layout="fill" className="object-cover object-center" src="https://picsum.photos/id/189/720/400" alt="blog" />
             </div>
             <div className="p-6 hover:bg-indigo-700 hover:text-white transition duration-300 ease-in">
-              <h2 className="text-base font-medium text-indigo-300 mb-1">
-                October 29, 2021
-              </h2>
-              <h1 className="text-2xl font-semibold mb-3">
-                Cities are crowded
-              </h1>
+              <h2 className="text-base font-medium text-indigo-300 mb-1">October 29, 2021</h2>
+              <h1 className="text-2xl font-semibold mb-3">Cities are crowded</h1>
               <p className="leading-relaxed mb-3">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-                modi, expedita quos doloremque autem ipsum itaque incidunt ipsam
-                reprehenderit fuga! Dolores quisquam eius cum accusamus?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam modi, expedita quos doloremque autem ipsum itaque incidunt
+                ipsam reprehenderit fuga! Dolores quisquam eius cum accusamus?
               </p>
               <div className="flex items-center flex-wrap ">
                 <a className="text-indigo-300 inline-flex items-center md:mb-2 lg:mb-0">
@@ -290,24 +262,14 @@ const CardsPage: NextPage = () => (
         <div className="p-4 sm:w-1/2 lg:w-1/3">
           <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
             <div className="h-56 lg:h-72 md:h-56 w-full relative">
-              <Image
-                layout="fill"
-                className="object-cover object-center"
-                src="https://picsum.photos/id/190/720/400"
-                alt="blog"
-              />
+              <Image layout="fill" className="object-cover object-center" src="https://picsum.photos/id/190/720/400" alt="blog" />
             </div>
             <div className="p-6 hover:bg-indigo-700 hover:text-white transition duration-300 ease-in">
-              <h2 className="text-base font-medium text-indigo-300 mb-1">
-                October 29, 2021
-              </h2>
-              <h1 className="text-2xl font-semibold mb-3">
-                Cities are crowded
-              </h1>
+              <h2 className="text-base font-medium text-indigo-300 mb-1">October 29, 2021</h2>
+              <h1 className="text-2xl font-semibold mb-3">Cities are crowded</h1>
               <p className="leading-relaxed mb-3">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-                modi, expedita quos doloremque autem ipsum itaque incidunt ipsam
-                reprehenderit fuga! Dolores quisquam eius cum accusamus?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam modi, expedita quos doloremque autem ipsum itaque incidunt
+                ipsam reprehenderit fuga! Dolores quisquam eius cum accusamus?
               </p>
               <div className="flex items-center flex-wrap ">
                 <a className="text-indigo-300 inline-flex items-center md:mb-2 lg:mb-0">
@@ -361,24 +323,14 @@ const CardsPage: NextPage = () => (
         <div className="p-4 sm:w-1/2 lg:w-1/3">
           <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
             <div className="h-56 lg:h-72 md:h-56 w-full relative">
-              <Image
-                layout="fill"
-                className="object-cover object-center"
-                src="https://picsum.photos/id/187/720/400"
-                alt="blog"
-              />
+              <Image layout="fill" className="object-cover object-center" src="https://picsum.photos/id/187/720/400" alt="blog" />
             </div>
             <div className="p-6 hover:bg-indigo-700 hover:text-white transition duration-300 ease-in">
-              <h2 className="text-base font-medium text-indigo-300 mb-1">
-                October 29, 2021
-              </h2>
-              <h1 className="text-2xl font-semibold mb-3">
-                Cities are crowded
-              </h1>
+              <h2 className="text-base font-medium text-indigo-300 mb-1">October 29, 2021</h2>
+              <h1 className="text-2xl font-semibold mb-3">Cities are crowded</h1>
               <p className="leading-relaxed mb-3">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-                modi, expedita quos doloremque autem ipsum itaque incidunt ipsam
-                reprehenderit fuga! Dolores quisquam eius cum accusamus?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam modi, expedita quos doloremque autem ipsum itaque incidunt
+                ipsam reprehenderit fuga! Dolores quisquam eius cum accusamus?
               </p>
               <div className="flex items-center flex-wrap ">
                 <a className="text-indigo-300 inline-flex items-center md:mb-2 lg:mb-0">
@@ -432,24 +384,14 @@ const CardsPage: NextPage = () => (
         <div className="p-4 sm:w-1/2 lg:w-1/3">
           <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
             <div className="h-56 lg:h-72 md:h-56 w-full relative">
-              <Image
-                layout="fill"
-                className="object-cover object-center"
-                src="https://picsum.photos/id/186/720/400"
-                alt="blog"
-              />
+              <Image layout="fill" className="object-cover object-center" src="https://picsum.photos/id/186/720/400" alt="blog" />
             </div>
             <div className="p-6 hover:bg-indigo-700 hover:text-white transition duration-300 ease-in">
-              <h2 className="text-base font-medium text-indigo-300 mb-1">
-                October 29, 2021
-              </h2>
-              <h1 className="text-2xl font-semibold mb-3">
-                Cities are crowded
-              </h1>
+              <h2 className="text-base font-medium text-indigo-300 mb-1">October 29, 2021</h2>
+              <h1 className="text-2xl font-semibold mb-3">Cities are crowded</h1>
               <p className="leading-relaxed mb-3">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-                modi, expedita quos doloremque autem ipsum itaque incidunt ipsam
-                reprehenderit fuga! Dolores quisquam eius cum accusamus?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam modi, expedita quos doloremque autem ipsum itaque incidunt
+                ipsam reprehenderit fuga! Dolores quisquam eius cum accusamus?
               </p>
               <div className="flex items-center flex-wrap ">
                 <a className="text-indigo-300 inline-flex items-center md:mb-2 lg:mb-0">

@@ -14,18 +14,8 @@ interface Props {
   contract: Marketplace | undefined;
 }
 
-export const MarketplaceCard: React.FC<Props> = ({
-  name,
-  image,
-  sellerAddress,
-  tokenId,
-  currencyValue,
-  contract,
-}) => {
-  const onBuyNFT = async (
-    contract: Marketplace | undefined,
-    tokenId: BigNumberish
-  ) => {
+export const MarketplaceCard: React.FC<Props> = ({ name, image, sellerAddress, tokenId, currencyValue, contract }) => {
+  const onBuyNFT = async (contract: Marketplace | undefined, tokenId: BigNumberish) => {
     try {
       await contract?.buyoutListing(tokenId, 1);
     } catch (error) {
@@ -36,12 +26,7 @@ export const MarketplaceCard: React.FC<Props> = ({
   return (
     <div className="shadow-lg border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
       <CardImage>
-        <Image
-          src={image}
-          alt="Picture of the author"
-          layout="fill"
-          className="object-cover object-center"
-        />
+        <Image src={image} alt="Picture of the author" layout="fill" className="object-cover object-center" />
       </CardImage>
       <CardBody>
         <h3 className="text-2xl font-semibold mb-3 uppercase">{name}</h3>
