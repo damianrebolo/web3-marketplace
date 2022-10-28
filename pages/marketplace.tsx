@@ -1,23 +1,38 @@
 import type { NextPage } from "next";
-
-import { useAddress, ConnectWallet } from "@thirdweb-dev/react";
+import Image from "next/image";
 
 import { CardContainer, Container, GridContainer } from "../components/shared/ui";
+import OffCanvas from "../components/shared/ui/OffCanvas";
+import Navbar from "../components/shared/ui/Navbar";
+import Nav from "../components/shared/ui/Nav";
 
-import { ActiveListings, MarketplaceCard } from "../components/pages/Marketplace";
+import { WalletIcon } from "../components/shared/icons/Wallet";
 
-const MarketplacePage: NextPage = () => {
-  const address = useAddress();
+import { ActiveListings, MarketplaceCard, WalletStatus } from "../components/pages/Marketplace";
 
-  if (!address) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <ConnectWallet />
-      </div>
-    );
-  }
+const MarketplacePage: NextPage = () => (
+  <>
+    <Navbar>
+      <Navbar.Brand href="/marketplace">
+        <Image src="/assets/images/logo.png" alt="Web3 Portfolio" width={40} height={40} /> Web3 Portfolio
+      </Navbar.Brand>
+      <Nav>
+        <Nav.Link href="/marketplace">Marketplace</Nav.Link>
+        <Nav.Link href="/usdc">Usdc</Nav.Link>
+      </Nav>
+      <Navbar.Toggle>
+        <WalletIcon className="w-10 h-10 cursor-pointer" />
+      </Navbar.Toggle>
+      <Navbar.OffCanvas>
+        <OffCanvas.Header closeButton>
+          <OffCanvas.Title>My Wallet</OffCanvas.Title>
+        </OffCanvas.Header>
+        <OffCanvas.Body>
+          <WalletStatus />
+        </OffCanvas.Body>
+      </Navbar.OffCanvas>
+    </Navbar>
 
-  return (
     <Container>
       <ActiveListings>
         {(listings, contract) => (
@@ -38,7 +53,7 @@ const MarketplacePage: NextPage = () => {
         )}
       </ActiveListings>
     </Container>
-  );
-};
+  </>
+);
 
 export default MarketplacePage;
