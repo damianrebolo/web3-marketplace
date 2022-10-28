@@ -1,3 +1,1 @@
-export * from "./CardContainer";
-export * from "./CardImage";
-export * from "./CardBody";
+export { default } from "./Card";
