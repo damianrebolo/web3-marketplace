@@ -16,7 +16,7 @@ const MarketplacePage: NextPage = () => (
       <Navbar.Brand href="/marketplace">
         <Image src="/assets/images/logo.png" alt="Web3 Portfolio" width={40} height={40} /> Web3 Portfolio
       </Navbar.Brand>
-      <Nav>
+      <Nav className="ml-auto">
         <Nav.Link href="/marketplace">Marketplace</Nav.Link>
         <Nav.Link href="/usdc">Usdc</Nav.Link>
       </Nav>
