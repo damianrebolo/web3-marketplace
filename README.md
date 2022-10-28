@@ -58,4 +58,4 @@ To mint NFTs:
 - Create **.env.local** file on the root folder, copy the ENV variable from **.env.example** and copy the Marketplace contract from thirdweb.
 - Run: `npm install`
 - Run: `npm run dev`
-- Enjoy it!!
+- [Enjoy it!!](http://localhost:3000/marketplace)
