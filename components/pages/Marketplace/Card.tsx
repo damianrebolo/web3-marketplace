@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { BigNumberish } from "ethers";
+import { useNetwork, useNetworkMismatch } from "@thirdweb-dev/react";
+import { ChainId, Marketplace } from "@thirdweb-dev/sdk";
 
 import { EtherIcon, UserIcon } from "../../shared/icons";
 import { CardBody, CardImage } from "../../shared/ui";
-import { Marketplace } from "@thirdweb-dev/sdk";
 
 interface Props {
   name: string | number | undefined;
@@ -15,9 +16,12 @@ interface Props {
 }
 
 export const MarketplaceCard: React.FC<Props> = ({ name, image, sellerAddress, tokenId, currencyValue, contract }) => {
+  const isMismatched = useNetworkMismatch();
+  const [, switchNetwork] = useNetwork();
+
   const onBuyNFT = async (contract: Marketplace | undefined, tokenId: BigNumberish) => {
     try {
-      await contract?.buyoutListing(tokenId, 1);
+      isMismatched ? await switchNetwork?.(ChainId.Goerli) : await contract?.buyoutListing(tokenId, 1);
     } catch (error) {
       console.log(error);
     }
