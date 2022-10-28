@@ -1,7 +1,7 @@
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
 
-import { MetamaskIcon } from "../../shared/icons";
-import { Button } from "../../shared/ui";
+import { MetamaskIcon } from "../icons";
+import { Button } from "../ui";
 
 export const WalletStatus: React.FC = () => {
   const address = useAddress();
