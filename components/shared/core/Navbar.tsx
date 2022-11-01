@@ -7,10 +7,6 @@ import Navbar from "../ui/Navbar";
 import OffCanvas from "../ui/OffCanvas";
 import { WalletStatus } from "./WalletStatus";
 
-interface Props {
-  children: ReactNode;
-}
-
 export const CoreNavbar: React.FC = () => (
   <Navbar>
     <Navbar.Brand href="/marketplace">
