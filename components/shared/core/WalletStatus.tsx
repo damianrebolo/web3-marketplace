@@ -16,9 +16,7 @@ export const WalletStatus: React.FC = () => {
             <span className="ml-3 text-gray-600 font-bold">Log out</span>
           </Button>
 
-          <span className="text-gray-900 font-bold text-md">{`${address?.substring(0, 6)}...${address?.substring(
-            address?.length - 4
-          )}`}</span>
+          <span className="text-white font-bold text-md">{`${address?.substring(0, 6)}...${address?.substring(address?.length - 4)}`}</span>
         </div>
       ) : (
         <Button onClick={() => connectWithMetamask()}>
