@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "prettier": "npx prettier --write pages components",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@thirdweb-dev/react": "^3.2.5",
@@ -20,6 +22,15 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@storybook/addon-actions": "^6.5.13",
+    "@storybook/addon-essentials": "^6.5.13",
+    "@storybook/addon-interactions": "^6.5.13",
+    "@storybook/addon-links": "^6.5.13",
+    "@storybook/builder-webpack5": "^6.5.13",
+    "@storybook/manager-webpack5": "^6.5.13",
+    "@storybook/react": "^6.5.13",
+    "@storybook/testing-library": "^0.0.13",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
@@ -27,13 +38,16 @@
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "autoprefixer": "^10.4.12",
+    "babel-loader": "^8.2.5",
     "eslint": "8.25.0",
     "eslint-config-next": "12.3.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-storybook": "^0.6.7",
     "jest": "^29.2.2",
     "jest-environment-jsdom": "^29.2.2",
     "postcss": "^8.4.18",
+    "react-refresh": "^0.14.0",
     "tailwindcss": "^3.1.8",
     "typescript": "4.8.4"
   }
