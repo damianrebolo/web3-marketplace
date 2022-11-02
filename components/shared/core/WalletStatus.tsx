@@ -1,7 +1,7 @@
+import { Button } from "@shared/ui/Button";
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
 
 import { MetamaskIcon } from "../icons";
-import { Button } from "../ui";
 
 export const WalletStatus: React.FC = () => {
   const address = useAddress();
@@ -11,18 +11,12 @@ export const WalletStatus: React.FC = () => {
     <>
       {address ? (
         <div className="flex justify-between items-center">
-          <Button onClick={() => disconnectWallet()}>
-            <MetamaskIcon w={30} h={30} />
-            <span className="ml-3 text-gray-600 font-bold">Log out</span>
-          </Button>
+          <Button onClick={() => disconnectWallet()}>Logout</Button>
 
           <span className="text-white font-bold text-md">{`${address?.substring(0, 6)}...${address?.substring(address?.length - 4)}`}</span>
         </div>
       ) : (
-        <Button onClick={() => connectWithMetamask()}>
-          <MetamaskIcon w={30} h={30} />
-          <span className="ml-3 text-gray-600 font-bold">Connect</span>
-        </Button>
+        <Button onClick={() => connectWithMetamask()}>Connect with Metamask</Button>
       )}
     </>
   );

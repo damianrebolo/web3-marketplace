@@ -5,6 +5,7 @@ import { ChainId, Marketplace } from "@thirdweb-dev/sdk";
 
 import { EtherIcon, UserIcon } from "@shared/icons";
 import Card from "@shared/ui/Card";
+import { Button } from "@shared/ui/Button";
 
 interface Props {
   name: string | number | undefined;
@@ -43,13 +44,7 @@ export const MarketplaceCard: React.FC<Props> = ({ name, image, sellerAddress, t
         </h4>
 
         <div className="flex justify-between items-center flex-wrap ">
-          <button
-            type="button"
-            className="bg-gray-200 py-2 px-5 text-md font-medium text-gray-900 rounded-lg inline-flex items-center"
-            onClick={() => onBuyNFT(contract, tokenId)}
-          >
-            Buy now..
-          </button>
+          <Button onClick={() => onBuyNFT(contract, tokenId)}>Buy Now...</Button>
           <div className="flex justify-center items-center">
             <EtherIcon />
             <span className="text-md font-bold">{currencyValue}</span>
