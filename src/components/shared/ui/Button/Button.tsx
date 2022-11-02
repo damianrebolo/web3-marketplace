@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "cva";
 
-const button = cva(["font-semibold", "rounded-md", "text-white"], {
+const button = cva(["flex justify-center items-center font-semibold rounded-md text-white"], {
   variants: {
     variant: {
       primary: "bg-blue-500 hover:bg-blue-600",
