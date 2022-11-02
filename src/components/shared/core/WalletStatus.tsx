@@ -1,4 +1,4 @@
-import { Button } from "@shared/ui/Button";
+import { Button } from "../ui/Button";
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
 
 import { MetamaskIcon } from "../icons";

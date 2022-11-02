@@ -3,9 +3,9 @@ import { BigNumberish } from "ethers";
 import { useNetwork, useNetworkMismatch } from "@thirdweb-dev/react";
 import { ChainId, Marketplace } from "@thirdweb-dev/sdk";
 
-import { EtherIcon, UserIcon } from "@shared/icons";
-import Card from "@shared/ui/Card";
-import { Button } from "@shared/ui/Button";
+import { EtherIcon, UserIcon } from "../../shared/icons";
+import Card from "../../shared/ui/Card";
+import { Button } from "../../shared/ui/Button";
 
 interface Props {
   name: string | number | undefined;

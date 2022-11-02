@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import { useContract, useActiveListings } from "@thirdweb-dev/react";
 import { AuctionListing, DirectListing, Marketplace } from "@thirdweb-dev/sdk";
 
-import { Loading, Error } from "@shared/core";
+import { Loading, Error } from "../../shared/core";
 
 interface Props {
   children: (listings: (AuctionListing | DirectListing)[] | undefined, contract: Marketplace | undefined) => ReactNode;
