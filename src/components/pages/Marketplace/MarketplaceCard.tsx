@@ -29,7 +29,7 @@ export const MarketplaceCard: React.FC<Props> = ({ name, image, sellerAddress, t
   };
 
   return (
-    <Card>
+    <Card shadow="lg">
       {image && (
         <Card.Image>
           <Image src={image} alt="Picture of the author" layout="fill" className="object-cover object-center" />
