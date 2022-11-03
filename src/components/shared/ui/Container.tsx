@@ -5,5 +5,5 @@ interface Props {
 }
 
 export const Container: React.FC<Props> = ({ children }) => (
-  <section className="w-full dark:bg-gray-900">{children}</section>
+  <section className="w-full h-full dark:bg-gray-900">{children}</section>
 );
