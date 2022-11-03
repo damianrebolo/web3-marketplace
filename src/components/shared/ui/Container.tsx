@@ -4,6 +4,4 @@ interface Props {
   children: ReactNode;
 }
 
-export const Container: React.FC<Props> = ({ children }) => (
-  <section className="w-full h-full dark:bg-gray-900">{children}</section>
-);
+export const Container: React.FC<Props> = ({ children }) => <section className="w-full">{children}</section>;
