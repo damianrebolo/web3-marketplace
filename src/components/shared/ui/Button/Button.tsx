@@ -26,4 +26,6 @@ const button = cva(["flex justify-center items-center font-semibold rounded-md t
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, VariantProps<typeof button> {}
 
-export const Button: React.FC<ButtonProps> = ({ variant, size, ...props }) => <button className={button({ variant, size })} {...props} />;
+export const Button: React.FC<ButtonProps> = ({ variant, size, ...props }) => (
+  <button className={button({ variant, size })} {...props} />
+);

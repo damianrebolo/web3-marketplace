@@ -12,7 +12,9 @@ interface Props {
 
 const OffCanvas: React.FC<Props> = ({ children, toggle, setToggle }) => {
   const childrenWithProps = React.Children.toArray(children).map((child) =>
-    React.isValidElement<{ setToggle: Dispatch<SetStateAction<boolean>> }>(child) ? React.cloneElement(child, { setToggle }) : child
+    React.isValidElement<{ setToggle: Dispatch<SetStateAction<boolean>> }>(child)
+      ? React.cloneElement(child, { setToggle })
+      : child
   );
   return (
     <>
