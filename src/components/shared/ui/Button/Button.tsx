@@ -9,7 +9,7 @@ const button = cva(["flex justify-center items-center font-semibold rounded-md t
       danger: "bg-red-500 hover:bg-red-600",
       warning: "bg-yellow-500 hover:bg-yellow-600 text-black",
       info: "bg-sky-500 hover:bg-sky-600 text-black",
-      dark: "bg-black hover:bg-gray-900",
+      dark: "bg-gray-800 hover:bg-gray-900",
       light: "bg-zinc-100 hover:bg-zinc-200 text-black",
       link: "text-blue-500 hover:text-blue-600 underline underline-offset-4",
     },

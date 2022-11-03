@@ -44,7 +44,9 @@ export const MarketplaceCard: React.FC<Props> = ({ name, image, sellerAddress, t
         </h4>
 
         <div className="flex justify-between items-center flex-wrap ">
-          <Button onClick={() => onBuyNFT(contract, tokenId)}>Buy Now...</Button>
+          <Button variant="dark" onClick={() => onBuyNFT(contract, tokenId)}>
+            Buy Now
+          </Button>
           <div className="flex justify-center items-center">
             <EtherIcon />
             <span className="text-md font-bold">{currencyValue}</span>

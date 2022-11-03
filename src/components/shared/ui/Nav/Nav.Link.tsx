@@ -8,7 +8,9 @@ interface Props {
 
 export const NavLink: React.FC<Props> = ({ children, href }) => (
   <Link href={href}>
-    <a className="font-semibold text-gray-800 hover:text-gray-400 text-lg">{children}</a>
+    <a className="font-semibold text-gray-600 hover:text-gray-400 dark:text-white dark:hover:text-gray-200 text-lg">
+      {children}
+    </a>
   </Link>
 );
 

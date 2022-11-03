@@ -8,7 +8,9 @@ interface Props {
 
 export const NavbarBrand: React.FC<Props> = ({ children, href }) => (
   <Link href={href}>
-    <a className="flex flex-nowrap items-center gap-2 text-gray-600 font-bold text-lg truncate ml-3">{children}</a>
+    <a className="flex flex-nowrap items-center gap-2 text-gray-500 dark:text-white font-bold text-xl truncate ml-3">
+      {children}
+    </a>
   </Link>
 );
 
