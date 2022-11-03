@@ -20,5 +20,5 @@ export const ActiveListings = ({ children }: Props) => {
     return <Error>{errorParsed?.reason}</Error>;
   }
 
-  return <>{children(listings, contract)}</>;
+  return <div className="w-full max-w-7xl px-5 py-5 mx-auto">{children(listings, contract)}</div>;
 };
