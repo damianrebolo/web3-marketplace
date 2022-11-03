@@ -16,6 +16,7 @@ export const CoreNavbar: React.FC = () => (
       <Nav.Link href="/marketplace">Marketplace</Nav.Link>
       <Nav.Link href="/usdc">Usdc</Nav.Link>
     </Nav>
+    <Navbar.Darkmode />
     <Navbar.Toggle className="ml-auto sm:ml-3">
       <WalletIcon className="w-10 h-10 cursor-pointer" />
     </Navbar.Toggle>
