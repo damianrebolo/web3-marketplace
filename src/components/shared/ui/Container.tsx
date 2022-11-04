@@ -1,7 +1,19 @@
-import { ReactNode } from "react";
+import { cva, cx, type VariantProps } from "cva";
 
-interface Props {
-  children: ReactNode;
-}
+const containerCva = cva("", {
+  variants: {
+    fluid: {
+      true: "w-full",
+      false: "container mx-auto",
+    },
+  },
+  defaultVariants: {
+    fluid: false,
+  },
+});
 
-export const Container: React.FC<Props> = ({ children }) => <section className="w-full">{children}</section>;
+export interface ContainerProps extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof containerCva> {}
+
+export const Container: React.FC<ContainerProps> = ({ fluid, className, ...props }) => (
+  <section className={cx(containerCva({ fluid }), className)} {...props} />
+);
