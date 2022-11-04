@@ -9,14 +9,18 @@ export const WalletStatus: React.FC = () => {
     <>
       {address ? (
         <div className="flex justify-between items-center">
-          <Button onClick={() => disconnectWallet()}>Logout</Button>
+          <Button variant="secondary" onClick={() => disconnectWallet()}>
+            Logout
+          </Button>
 
           <span className="text-white font-bold text-md">{`${address?.substring(0, 6)}...${address?.substring(
             address?.length - 4
           )}`}</span>
         </div>
       ) : (
-        <Button onClick={() => connectWithMetamask()}>Connect with Metamask</Button>
+        <Button variant="secondary" onClick={() => connectWithMetamask()}>
+          Connect with Metamask
+        </Button>
       )}
     </>
   );

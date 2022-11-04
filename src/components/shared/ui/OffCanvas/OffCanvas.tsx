@@ -20,7 +20,7 @@ const OffCanvas: React.FC<Props> = ({ children, toggle, setToggle }) => {
     <>
       {toggle && (
         <div
-          className={`top-0 right-0 w-full sm:w-[60vw] sm:max-w-md  bg-gray-700 text-white fixed h-full z-40 ease-in-out duration-1000 ${
+          className={`top-0 right-0 w-full sm:w-[60vw] sm:max-w-md bg-gray-800 text-gray-200 fixed h-full z-40 ease-in-out duration-1000 ${
             toggle ? "translate-x-0 " : "translate-x-full"
           }`}
         >

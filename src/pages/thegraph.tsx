@@ -7,6 +7,7 @@ import Card from "components/shared/ui/Card";
 
 import { nftsQuery } from "../contants";
 import { TheGraphNavbar } from "components/pages/thegraph/Navbar";
+import { GridContainer } from "components/shared/ui/GridContainer";
 
 interface Nft {
   id: string;
@@ -27,7 +28,7 @@ const ThegraphPage: NextPage<theGraphProps> = ({ nfts }) => {
     <>
       <TheGraphNavbar />
       <Container className="py-5">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-10 py-10">
+        <GridContainer>
           {nfts.map((nft) => (
             <Card key={nft.id}>
               <Card.Image>
@@ -43,7 +44,7 @@ const ThegraphPage: NextPage<theGraphProps> = ({ nfts }) => {
               </Card.Body>
             </Card>
           ))}
-        </div>
+        </GridContainer>
       </Container>
     </>
   );
@@ -56,7 +57,7 @@ export async function getServerSideProps() {
     url: APIURL,
   });
 
-  const { data } = await client.query(nftsQuery).toPromise();
+  const { data } = await client.query(nftsQuery, {}).toPromise();
   return {
     props: { nfts: data.nfts },
   };

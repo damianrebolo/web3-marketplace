@@ -4,6 +4,7 @@ import { useContract, useActiveListings } from "@thirdweb-dev/react";
 import { AuctionListing, DirectListing, Marketplace } from "@thirdweb-dev/sdk";
 
 import { Loading, Error } from "../../shared/core";
+import { GridContainer } from "components/shared/ui";
 
 interface Props {
   children: (listings: (AuctionListing | DirectListing)[] | undefined, contract: Marketplace | undefined) => ReactNode;
@@ -20,9 +21,5 @@ export const ActiveListings = ({ children }: Props) => {
     return <Error>{errorParsed?.reason}</Error>;
   }
 
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-10 py-10">
-      {children(listings, contract)}
-    </div>
-  );
+  return <GridContainer>{children(listings, contract)}</GridContainer>;
 };
