@@ -14,7 +14,7 @@ export const CoreNavbar: React.FC = () => (
     </Navbar.Brand>
     <Nav className="sm:ml-auto">
       <Nav.Link href="/marketplace">Marketplace</Nav.Link>
-      <Nav.Link href="/usdc">Usdc</Nav.Link>
+      <Nav.Link href="/thegraph">The Graph</Nav.Link>
     </Nav>
     <Navbar.Darkmode />
     <Navbar.Toggle className="ml-auto sm:ml-3">
