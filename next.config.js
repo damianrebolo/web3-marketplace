@@ -16,6 +16,12 @@ const nextConfig = {
         port: "",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "api.decentraland.org",
+        port: "",
+        pathname: "**",
+      },
     ],
   },
 };

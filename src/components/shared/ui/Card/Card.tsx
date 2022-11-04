@@ -64,11 +64,9 @@ const cardCva = cva("overflow-hidden", {
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardCva> {}
 
 const Card: React.FC<CardProps> = ({ bg, border, text, rounded, shadow, children, ...props }) => (
-  <Box>
-    <div className={cardCva({ bg, border, text, rounded, shadow })} {...props}>
-      {children}
-    </div>
-  </Box>
+  <div className={cardCva({ bg, border, text, rounded, shadow })} {...props}>
+    {children}
+  </div>
 );
 
 export default Object.assign(Card, {

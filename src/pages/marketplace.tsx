@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
 
-import { Container, GridContainer } from "../components/shared/ui";
-import { CoreNavbar } from "../components/shared/core";
+import { Container } from "../components/shared/ui";
+import { MarketplaceNavbar } from "../components/pages/Marketplace/Navbar";
 
 import { ActiveListings, MarketplaceCard } from "../components/pages/Marketplace";
 
@@ -13,11 +13,11 @@ const MarketplacePage: NextPage = () => (
       [ChainId.Goerli]: `https://goerli.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_ID}`,
     }}
   >
-    <CoreNavbar />
+    <MarketplaceNavbar />
     <Container className="py-5" fluid>
       <ActiveListings>
         {(listings, contract) => (
-          <GridContainer>
+          <>
             {listings?.map((listing) => (
               <MarketplaceCard
                 key={listing?.id}
@@ -29,7 +29,7 @@ const MarketplacePage: NextPage = () => (
                 tokenId={listing?.tokenId}
               />
             ))}
-          </GridContainer>
+          </>
         )}
       </ActiveListings>
     </Container>
