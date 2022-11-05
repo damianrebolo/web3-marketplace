@@ -12,11 +12,7 @@ export const MarketplaceNavbar: React.FC = () => (
     <Navbar.Brand href="/marketplace">
       <Image src="/assets/images/logo.png" alt="Web3 Portfolio" width={40} height={40} /> Web3 Portfolio
     </Navbar.Brand>
-    <Nav className="sm:ml-auto">
-      <Nav.Link href="/marketplace">Marketplace</Nav.Link>
-      <Nav.Link href="/thegraph">The Graph</Nav.Link>
-    </Nav>
-    <Navbar.Darkmode />
+    <Navbar.Darkmode className="sm:ml-auto" />
     <Navbar.Toggle className="ml-auto sm:ml-3">
       <WalletIcon className="w-10 h-10 cursor-pointer" />
     </Navbar.Toggle>
