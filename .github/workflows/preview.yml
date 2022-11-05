@@ -6,10 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: preview
     steps:
       - uses: actions/checkout@v3
-
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -18,9 +16,6 @@ jobs:
       - name: Install
         run: npm install
       - name: Build
-        env:
-          NEXT_PUBLIC_MARKETPLACE_ADDRESS: ${{ secrets.NEXT_PUBLIC_MARKETPLACE_ADDRESS }}
-          NEXT_PUBLIC_INFURA_ID: ${{ secrets.NEXT_PUBLIC_INFURA_ID }}
         run: npm run build
 
   deploy:
@@ -36,7 +31,7 @@ jobs:
         with:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
-          env: "preview"
+          env: "Preview"
 
       - uses: actions/checkout@v3
 
