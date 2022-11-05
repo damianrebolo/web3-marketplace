@@ -4,7 +4,12 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
-  return <h1 className="text-7xl font-bold underline">1.0.1</h1>;
+  return (
+    <div className="flex flex-col items-start">
+      <div>version: 1.0.2</div>
+      <div>contractId: {process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS}</div>
+    </div>
+  );
 };
 
 export default Home;
