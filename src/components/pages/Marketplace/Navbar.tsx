@@ -9,9 +9,12 @@ import { WalletStatus } from "../../shared/core/WalletStatus";
 
 export const MarketplaceNavbar: React.FC = () => (
   <Navbar>
-    <Navbar.Brand href="/marketplace">
+    <Navbar.Brand href="/">
       <Image src="/assets/images/logo.png" alt="Web3 Portfolio" width={40} height={40} /> Web3 Portfolio
     </Navbar.Brand>
+    <Nav className="ml-8">
+      <Nav.Link href="/nfts">NFT Collection</Nav.Link>
+    </Nav>
     <Navbar.Darkmode className="sm:ml-auto" />
     <Navbar.Toggle className="ml-auto sm:ml-3">
       <WalletIcon className="w-10 h-10 cursor-pointer" />
