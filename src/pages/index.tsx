@@ -5,7 +5,7 @@ import { Container } from "../components/shared/ui";
 import { ActiveListings, MarketplaceCard } from "../components/pages/Marketplace";
 
 const Home: NextPage = () => (
-  <Container className="py-5" fluid>
+  <Container fluid>
     <ActiveListings>
       {(listings, contract) => (
         <>
