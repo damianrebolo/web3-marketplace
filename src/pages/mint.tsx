@@ -114,7 +114,7 @@ const NftsPage: NextPage = () => {
               placeholder="Description"
             />
 
-            <Button type="submit" className="mt-8" disabled={creatingListing}>
+            <Button className="mt-8" type="submit" disabled={creatingListing}>
               {creatingListing ? "Loading..." : "Mint"}
             </Button>
           </div>
