@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const ActiveListings = ({ children }: Props) => {
-  const { contract } = useContract(process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS, "marketplace");
+  const { contract } = useContract(process.env.NEXT_PUBLIC_CONTRACT_MARKETPLACE, "marketplace");
   const { data: listings, isLoading, error } = useActiveListings(contract);
 
   if (isLoading) {
