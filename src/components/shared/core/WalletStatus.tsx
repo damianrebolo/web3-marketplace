@@ -1,6 +1,8 @@
 import { Button } from "../ui/Button";
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
 
+import { cutAddress } from "utils";
+
 export const WalletStatus: React.FC = () => {
   const address = useAddress();
   const disconnectWallet = useDisconnect();
@@ -13,9 +15,7 @@ export const WalletStatus: React.FC = () => {
             Logout
           </Button>
 
-          <span className="text-white font-bold text-md">{`${address?.substring(0, 6)}...${address?.substring(
-            address?.length - 4
-          )}`}</span>
+          <span className="text-white font-bold text-md">{cutAddress(address)}</span>
         </div>
       ) : (
         <Button variant="secondary" onClick={() => connectWithMetamask()}>

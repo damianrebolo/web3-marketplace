@@ -7,6 +7,8 @@ import { useContract, useNFTs } from "@thirdweb-dev/react";
 import { Loading, Error } from "components/shared/core";
 import { Button } from "components/shared/ui/Button";
 
+import { cutAddress } from "utils";
+
 const NftsPage: NextPage = () => {
   const { contract } = useContract(process.env.NEXT_PUBLIC_CONTRACT_NFTS);
   const { data: nfts, isLoading, error } = useNFTs(contract, { start: 0, count: 100 });
@@ -27,7 +29,7 @@ const NftsPage: NextPage = () => {
         </Link>
       </div>
 
-      <div className="overflow-x-auto relative">
+      <div className="overflow-x-auto relative my-10">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -54,7 +56,7 @@ const NftsPage: NextPage = () => {
                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {nft.metadata.id}
                 </th>
-                <td className="py-4 px-6 relative w-32 h-32">
+                <td className="py-4 px-6 relative">
                   <Image
                     src={nft.metadata.image as string}
                     alt={nft.metadata.name as string}
@@ -64,7 +66,7 @@ const NftsPage: NextPage = () => {
                 </td>
                 <td className="py-4 px-6">{nft.metadata.name}</td>
                 <td className="py-4 px-6">{nft.metadata.description}</td>
-                <td className="py-4 px-6">{nft.owner}</td>
+                <td className="py-4 px-6">{cutAddress(nft.owner)}</td>
               </tr>
             ))}
           </tbody>
