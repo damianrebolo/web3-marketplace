@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { BigNumberish } from "ethers";
-import { useNetwork, useNetworkMismatch } from "@thirdweb-dev/react";
-import { ChainId, Marketplace } from "@thirdweb-dev/sdk";
+import { useContract, useNetwork, useNetworkMismatch, useAddress } from "@thirdweb-dev/react";
+import { ChainId } from "@thirdweb-dev/sdk";
 
 import { EtherIcon, UserIcon } from "../../shared/icons";
 import Card from "../../shared/ui/Card";
@@ -11,18 +11,20 @@ interface Props {
   name: string | number | undefined;
   image: string | null | undefined;
   sellerAddress: string;
-  tokenId: BigNumberish;
+  id: BigNumberish;
   currencyValue: string;
-  contract: Marketplace | undefined;
 }
 
-export const MarketplaceCard: React.FC<Props> = ({ name, image, sellerAddress, tokenId, currencyValue, contract }) => {
+export const MarketplaceCard: React.FC<Props> = ({ name, image, sellerAddress, id, currencyValue }) => {
   const isMismatched = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
+  const address = useAddress() as string;
 
-  const onBuyNFT = async (contract: Marketplace | undefined, tokenId: BigNumberish) => {
+  const { contract } = useContract(process.env.NEXT_PUBLIC_CONTRACT_MARKETPLACE, "marketplace");
+
+  const onBuyNFT = async () => {
     try {
-      isMismatched ? await switchNetwork?.(ChainId.Goerli) : await contract?.buyoutListing(tokenId, 1);
+      isMismatched ? await switchNetwork?.(ChainId.Goerli) : await contract?.buyoutListing(id, 1, address);
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +46,7 @@ export const MarketplaceCard: React.FC<Props> = ({ name, image, sellerAddress, t
         </h4>
 
         <div className="flex justify-between items-center flex-wrap ">
-          <Button variant="dark" onClick={() => onBuyNFT(contract, tokenId)}>
+          <Button variant="dark" onClick={() => onBuyNFT()}>
             Buy Now
           </Button>
           <div className="flex justify-center items-center">

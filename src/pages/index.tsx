@@ -7,17 +7,16 @@ import { ActiveListings, MarketplaceCard } from "../components/pages/Marketplace
 const Home: NextPage = () => (
   <Container fluid>
     <ActiveListings>
-      {(listings, contract) => (
+      {(listings) => (
         <>
           {listings?.map((listing) => (
             <MarketplaceCard
               key={listing?.id}
-              contract={contract}
               image={listing?.asset?.image}
               name={listing?.asset?.name}
               currencyValue={listing?.buyoutCurrencyValuePerToken?.displayValue}
               sellerAddress={listing?.sellerAddress}
-              tokenId={listing?.tokenId}
+              id={listing?.id}
             />
           ))}
         </>
