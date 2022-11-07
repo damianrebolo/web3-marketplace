@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { ChangeEvent, FormEvent, useCallback, useRef, useState } from "react";
 
 import { Container } from "components/shared/ui";
-import { useAddress, useContract, useSDK } from "@thirdweb-dev/react";
+import { useAddress, useContract, useSDK, useStorageUpload } from "@thirdweb-dev/react";
 // import { Loading, Error } from "components/shared/core";
 import { Button } from "components/shared/ui/Button";
 import Image from "next/image";
@@ -14,6 +14,7 @@ const NftsPage: NextPage = () => {
   const [creatingListing, setCreatingListing] = useState(false);
 
   const address = useAddress() as string;
+  const { mutateAsync: upload } = useStorageUpload();
   const { contract: nftCollection } = useContract(process.env.NEXT_PUBLIC_CONTRACT_NFTS, "nft-collection");
   const sdk = useSDK();
 
@@ -29,17 +30,32 @@ const NftsPage: NextPage = () => {
         };
         const name = target.name.value;
         const description = target.description.value;
-        const img = await sdk?.storage.upload(file);
+        const uris = await upload({
+          data: [file],
+        });
 
-        const metadata = {
-          name,
-          description,
-          image: img,
-        };
-        const tx = await nftCollection?.mintTo(address, metadata);
+        const signedPayloadReq = await fetch(`/api/mint`, {
+          method: "POST",
+          body: JSON.stringify({
+            address, // Address of the current user
+            name,
+            description,
+            image: uris[0],
+          }),
+        });
+
+        const signedJson = await signedPayloadReq.json();
+
+        if (!signedPayloadReq.ok) {
+          throw new Error(signedJson.error);
+        }
+
+        const signedPayload = signedJson.signedPayload;
+
+        const tx = await nftCollection?.signature.mint(signedPayload);
 
         if (tx) {
-          router.push(`/`);
+          router.push(`/nfts`);
         }
       } catch (error) {
         console.error(error);
@@ -47,7 +63,7 @@ const NftsPage: NextPage = () => {
         setCreatingListing(false);
       }
     },
-    [address, nftCollection, file, router, sdk]
+    [address, nftCollection, file, router, upload]
   );
 
   const handleUploadFile = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
@@ -79,9 +95,9 @@ const NftsPage: NextPage = () => {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                       ></path>
                     </svg>
