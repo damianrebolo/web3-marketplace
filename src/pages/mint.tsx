@@ -1,12 +1,13 @@
 import { NextPage } from "next";
-import { ChangeEvent, FormEvent, useCallback, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 
 import { Container } from "components/shared/ui";
-import { useAddress, useContract, useSDK, useStorageUpload } from "@thirdweb-dev/react";
-// import { Loading, Error } from "components/shared/core";
+import { useAddress, useContract, useStorageUpload } from "@thirdweb-dev/react";
 import { Button } from "components/shared/ui/Button";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
+import { BigNumber } from "ethers";
 
 const NftsPage: NextPage = () => {
   const router = useRouter();
@@ -16,7 +17,7 @@ const NftsPage: NextPage = () => {
   const address = useAddress() as string;
   const { mutateAsync: upload } = useStorageUpload();
   const { contract: nftCollection } = useContract(process.env.NEXT_PUBLIC_CONTRACT_NFTS, "nft-collection");
-  const sdk = useSDK();
+  const { contract: marketplace } = useContract(process.env.NEXT_PUBLIC_CONTRACT_MARKETPLACE as string, "marketplace");
 
   const handleMinNft = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
@@ -27,9 +28,11 @@ const NftsPage: NextPage = () => {
         const target = e.target as typeof e.target & {
           name: { value: string };
           description: { value: string };
+          price: { value: string };
         };
         const name = target.name.value;
         const description = target.description.value;
+        const price = target.price.value;
         const uris = await upload({
           data: [file],
         });
@@ -37,7 +40,7 @@ const NftsPage: NextPage = () => {
         const signedPayloadReq = await fetch(`/api/mint`, {
           method: "POST",
           body: JSON.stringify({
-            address, // Address of the current user
+            address,
             name,
             description,
             image: uris[0],
@@ -52,10 +55,22 @@ const NftsPage: NextPage = () => {
 
         const signedPayload = signedJson.signedPayload;
 
-        const tx = await nftCollection?.signature.mint(signedPayload);
+        const nft = await nftCollection?.signature.mint(signedPayload);
+
+        const mintedTokenId = nft?.id as BigNumber;
+
+        const tx = await marketplace?.direct.createListing({
+          assetContractAddress: process.env.NEXT_PUBLIC_CONTRACT_NFTS as string, // Contract Address of the NFT
+          buyoutPricePerToken: price, // Maximum price, the auction will end immediately if a user pays this price.
+          currencyContractAddress: NATIVE_TOKEN_ADDRESS, // NATIVE_TOKEN_ADDRESS is the crpyto curency that is native to the network. i.e. Goerli ETH.
+          listingDurationInSeconds: 60 * 60 * 24 * 7 * 4 * 12, // When the auction will be closed and no longer accept bids (1 Week)
+          quantity: 1, // How many of the NFTs are being listed (useful for ERC 1155 tokens)
+          startTimestamp: new Date(0), // When the listing will start
+          tokenId: mintedTokenId, // Token ID of the NFT.
+        });
 
         if (tx) {
-          router.push(`/nfts`);
+          router.push(`/`);
         }
       } catch (error) {
         console.error(error);
@@ -63,7 +78,7 @@ const NftsPage: NextPage = () => {
         setCreatingListing(false);
       }
     },
-    [address, nftCollection, file, router, upload]
+    [address, nftCollection, file, upload, router, marketplace]
   );
 
   const handleUploadFile = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
@@ -119,19 +134,26 @@ const NftsPage: NextPage = () => {
             <input
               type="text"
               name="name"
-              className="w-80 m-4 bg-transparent border border-solid border-gray-500 rounded-lg text-white h-12 py-0 px-4 text-base"
+              className="w-80 mt-4 bg-transparent border border-solid border-gray-500 rounded-lg text-white h-12 py-0 px-4 text-base"
               placeholder="Name"
             />
 
             <input
               type="text"
               name="description"
-              className="w-80 bg-transparent border border-solid border-gray-500 rounded-lg text-white h-12 py-0 px-4 text-base"
+              className="w-80 mt-4 bg-transparent border border-solid border-gray-500 rounded-lg text-white h-12 py-0 px-4 text-base"
               placeholder="Description"
             />
 
+            <input
+              type="text"
+              name="price"
+              className="w-80 mt-4 bg-transparent border border-solid border-gray-500 rounded-lg text-white h-12 py-0 px-4 text-base"
+              placeholder="Price"
+            />
+
             <Button className="mt-8" type="submit" disabled={creatingListing}>
-              {creatingListing ? "Loading..." : "Mint"}
+              {creatingListing ? "Loading..." : "Mint + Listing"}
             </Button>
           </div>
         </div>
