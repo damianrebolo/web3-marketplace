@@ -7,7 +7,7 @@ import { Loading, Error } from "../../shared/core";
 import { GridContainer } from "components/shared/ui";
 
 interface Props {
-  children: (listings: (AuctionListing | DirectListing)[] | undefined, contract: Marketplace | undefined) => ReactNode;
+  children: (listings: (AuctionListing | DirectListing)[] | undefined) => ReactNode;
 }
 
 export const ActiveListings = ({ children }: Props) => {
@@ -21,5 +21,5 @@ export const ActiveListings = ({ children }: Props) => {
     return <Error>{errorParsed?.reason}</Error>;
   }
 
-  return <GridContainer>{children(listings, contract)}</GridContainer>;
+  return <GridContainer>{children(listings)}</GridContainer>;
 };

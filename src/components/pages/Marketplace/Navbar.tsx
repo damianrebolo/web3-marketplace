@@ -14,6 +14,7 @@ export const MarketplaceNavbar: React.FC = () => (
     </Navbar.Brand>
     <Nav className="ml-8">
       <Nav.Link href="/nfts">NFT Collection</Nav.Link>
+      <Nav.Link href="/listings">Listings</Nav.Link>
     </Nav>
     <Navbar.Darkmode className="sm:ml-auto" />
     <Navbar.Toggle className="ml-auto sm:ml-3">
