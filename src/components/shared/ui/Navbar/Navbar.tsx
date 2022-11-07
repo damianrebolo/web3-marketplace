@@ -23,7 +23,7 @@ const Navbar: React.FC<Props> = ({ children }) => {
 
   return (
     <NavbarContext.Provider value={navbarContext}>
-      <div className="flex flex-nowrap items-center p-4 dark:bg-gray-900 dark:text-white  border-b-2 dark:border-b-gray-600 border-b-gray-400">
+      <div className="flex flex-nowrap items-center p-4 dark:bg-gray-900 dark:text-white border-b-2 dark:border-b-gray-600 border-b-gray-400">
         {children}
       </div>
     </NavbarContext.Provider>
