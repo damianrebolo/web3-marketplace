@@ -1,12 +1,11 @@
 import { Button } from "../ui/Button";
-import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
+import { useAddress, useDisconnect, useMetamask, ConnectWallet } from "@thirdweb-dev/react";
 
 import { cutAddress } from "utils";
 
 export const WalletStatus: React.FC = () => {
   const address = useAddress();
   const disconnectWallet = useDisconnect();
-  const connectWithMetamask = useMetamask();
   return (
     <>
       {address ? (
@@ -18,9 +17,7 @@ export const WalletStatus: React.FC = () => {
           <span className="text-white font-bold text-md">{cutAddress(address)}</span>
         </div>
       ) : (
-        <Button variant="secondary" onClick={() => connectWithMetamask()}>
-          Connect with Metamask
-        </Button>
+        <ConnectWallet />
       )}
     </>
   );
