@@ -4,7 +4,7 @@ const containerCva = cva("", {
   variants: {
     fluid: {
       true: "w-full",
-      false: "container mx-auto",
+      false: "container mx-auto px-5 sm:px-0",
     },
   },
   defaultVariants: {
