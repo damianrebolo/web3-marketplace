@@ -1,5 +1,5 @@
 export const Loading: React.FC = () => (
-  <div className="flex justify-center items-center h-screen">
+  <div className="absolute top-0 left-0 flex justify-center items-center h-screen w-screen">
     <button
       disabled
       type="button"

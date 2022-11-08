@@ -2,35 +2,24 @@ import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Container } from "components/shared/ui";
-import { useContract, useNFTs } from "@thirdweb-dev/react";
-import { Loading, Error } from "components/shared/core";
+import { Container, Table } from "components/shared/ui";
 import { Button } from "components/shared/ui/Button";
 
 import { cutAddress } from "utils";
+import { NftList } from "components/pages/nfts";
 
-const NftsPage: NextPage = () => {
-  const { contract } = useContract(process.env.NEXT_PUBLIC_CONTRACT_NFTS);
-  const { data: nfts, isLoading, error } = useNFTs(contract, { start: 0, count: 100 });
+const NftsPage: NextPage = () => (
+  <Container className="m-10">
+    <div className="flex justify-between items-center my-5">
+      <h2 className="font-semibold text-xl text-gray-700 dark:text-white">NFT Collection</h2>
+      <Link href="/mint">
+        <Button variant="secondary">Mint + Listing</Button>
+      </Link>
+    </div>
 
-  if (isLoading) {
-    return <Loading />;
-  } else if (error) {
-    const errorParsed = JSON.parse(JSON.stringify(error));
-    return <Error>{errorParsed?.reason}</Error>;
-  }
-
-  return (
-    <Container className="m-10">
-      <div className="flex justify-between items-center my-5">
-        <h2 className="font-semibold text-xl text-gray-700 dark:text-white">NFT Collection</h2>
-        <Link href="/mint">
-          <Button variant="secondary">Mint + Listing</Button>
-        </Link>
-      </div>
-
-      <div className="overflow-x-auto relative my-10">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <NftList>
+      {(nfts) => (
+        <Table>
           <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="py-3 px-6">
@@ -70,10 +59,10 @@ const NftsPage: NextPage = () => {
               </tr>
             ))}
           </tbody>
-        </table>
-      </div>
-    </Container>
-  );
-};
+        </Table>
+      )}
+    </NftList>
+  </Container>
+);
 
 export default NftsPage;
