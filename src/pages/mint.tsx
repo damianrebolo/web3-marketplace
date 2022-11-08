@@ -2,8 +2,8 @@ import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 
-import { NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
-import { useAddress, useContract, useStorageUpload } from "@thirdweb-dev/react";
+import { ChainId, NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
+import { useAddress, useContract, useNetwork, useNetworkMismatch, useStorageUpload } from "@thirdweb-dev/react";
 import { BigNumber } from "ethers";
 
 import { Container } from "components/shared/ui";
@@ -14,7 +14,8 @@ const MintPage: NextPage = () => {
   const router = useRouter();
   const [file, setFile] = useState<File>();
   const [creatingListing, setCreatingListing] = useState(false);
-
+  const isMismatched = useNetworkMismatch();
+  const [, switchNetwork] = useNetwork();
   const address = useAddress() as string;
   const { mutateAsync: upload } = useStorageUpload();
   const { contract: nftCollection } = useContract(process.env.NEXT_PUBLIC_CONTRACT_NFTS, "nft-collection");
@@ -26,6 +27,10 @@ const MintPage: NextPage = () => {
       try {
         e.preventDefault();
 
+        if (isMismatched) {
+          await switchNetwork?.(ChainId.Goerli);
+          return;
+        }
         const target = e.target as typeof e.target & {
           name: { value: string };
           description: { value: string };
