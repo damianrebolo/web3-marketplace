@@ -1,15 +1,16 @@
-import { NextPage } from "next";
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
-
-import { Container } from "components/shared/ui";
-import { useAddress, useContract, useStorageUpload } from "@thirdweb-dev/react";
-import { Button } from "components/shared/ui/Button";
-import Image from "next/image";
+import { NextPage } from "next";
 import { useRouter } from "next/router";
+
 import { NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
+import { useAddress, useContract, useStorageUpload } from "@thirdweb-dev/react";
 import { BigNumber } from "ethers";
 
-const NftsPage: NextPage = () => {
+import { Container } from "components/shared/ui";
+import { Button } from "components/shared/ui/Button";
+import Form from "components/shared/ui/Form";
+
+const MintPage: NextPage = () => {
   const router = useRouter();
   const [file, setFile] = useState<File>();
   const [creatingListing, setCreatingListing] = useState(false);
@@ -89,77 +90,27 @@ const NftsPage: NextPage = () => {
 
   return (
     <Container className="m-10">
-      <form onSubmit={(e) => handleMinNft(e)}>
-        <div className="flex justify-center items-center w-full">
-          {/* Form Section */}
-          <div className="w-lg flex flex-col items-center mt-4">
-            <h1 className="m-8 text-2xl text-gray-700 dark:text-white">Upload your NFT to the marketplace:</h1>
+      <Form onSubmit={(e) => handleMinNft(e)}>
+        <h1 className="my-8 text-2xl text-gray-700 dark:text-white">Upload your NFT to the marketplace:</h1>
+        <Form.Group>
+          <Form.File file={file} handleUploadFile={handleUploadFile} />
+        </Form.Group>
 
-            {file ? (
-              <Image src={URL.createObjectURL(file)} height="125" width="125" alt="" />
-            ) : (
-              <div className="flex justify-center items-center w-full">
-                <label className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                  <div className="flex flex-col justify-center items-center pt-5 pb-6">
-                    <svg
-                      aria-hidden="true"
-                      className="mb-3 w-10 h-10 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      ></path>
-                    </svg>
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-semibold">Click to upload</span>
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or GIF</p>
-                  </div>
-                  <input
-                    type="file"
-                    accept="image/png, image/gif, image/jpeg"
-                    onChange={handleUploadFile}
-                    className="hidden"
-                  />
-                </label>
-              </div>
-            )}
-
-            <input
-              type="text"
-              name="name"
-              className="w-80 mt-4 bg-transparent border border-solid border-gray-500 rounded-lg text-white h-12 py-0 px-4 text-base"
-              placeholder="Name"
-            />
-
-            <input
-              type="text"
-              name="description"
-              className="w-80 mt-4 bg-transparent border border-solid border-gray-500 rounded-lg text-white h-12 py-0 px-4 text-base"
-              placeholder="Description"
-            />
-
-            <input
-              type="text"
-              name="price"
-              className="w-80 mt-4 bg-transparent border border-solid border-gray-500 rounded-lg text-white h-12 py-0 px-4 text-base"
-              placeholder="Price"
-            />
-
-            <Button className="mt-8" type="submit" disabled={creatingListing}>
-              {creatingListing ? "Loading..." : "Mint + Listing"}
-            </Button>
-          </div>
-        </div>
-      </form>
+        <Form.Group>
+          <Form.Control type="text" name="name" placeholder="Name" />
+        </Form.Group>
+        <Form.Group>
+          <Form.Control type="text" name="description" placeholder="Description" />
+        </Form.Group>
+        <Form.Group>
+          <Form.Control type="text" name="price" placeholder="Price" />
+        </Form.Group>
+        <Button className="mt-8" type="submit" disabled={creatingListing}>
+          {creatingListing ? "Loading..." : "Mint + Listing"}
+        </Button>
+      </Form>
     </Container>
   );
 };
 
-export default NftsPage;
+export default MintPage;
