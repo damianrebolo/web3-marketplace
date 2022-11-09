@@ -13,6 +13,7 @@ const Auth = () => (
 
 export const Layout: React.FC<Props> = ({ children }) => {
   const address = useAddress();
+
   if (!address) return <Auth />;
-  return <div className="layout">{children}</div>;
+  return <>{children}</>;
 };
