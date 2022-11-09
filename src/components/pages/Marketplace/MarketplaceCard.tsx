@@ -6,6 +6,7 @@ import { ChainId } from "@thirdweb-dev/sdk";
 import { EtherIcon, UserIcon } from "../../shared/icons";
 import Card from "../../shared/ui/Card";
 import { Button } from "../../shared/ui/Button";
+import { useToast } from "components/shared/core/Toaster/ToasterProvider";
 
 interface Props {
   name: string | number | undefined;
@@ -19,14 +20,30 @@ export const MarketplaceCard: React.FC<Props> = ({ name, image, sellerAddress, i
   const isMismatched = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
   const address = useAddress() as string;
+  const toast = useToast();
 
   const { contract } = useContract(process.env.NEXT_PUBLIC_CONTRACT_MARKETPLACE, "marketplace");
 
   const onBuyNFT = async () => {
     try {
-      isMismatched ? await switchNetwork?.(ChainId.Goerli) : await contract?.buyoutListing(id, 1, address);
+      // Validate network first
+      if (isMismatched) {
+        const switched = await switchNetwork?.(ChainId.Goerli);
+        if (switched?.error) {
+          throw new Error();
+        } else {
+          toast?.pushInfo("Network Switched, try again");
+          return;
+        }
+      }
+      // If network is correct
+      await contract?.buyoutListing(id, 1, address);
     } catch (error) {
-      console.log(error);
+      if (error instanceof Error) {
+        toast?.pushError("The transaction did not take place..");
+      } else {
+        console.log(error);
+      }
     }
   };
 

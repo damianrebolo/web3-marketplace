@@ -9,11 +9,13 @@ import { BigNumber } from "ethers";
 import { Container } from "components/shared/ui";
 import { Button } from "components/shared/ui/Button";
 import Form from "components/shared/ui/Form";
+import { useToast } from "components/shared/core/Toaster/ToasterProvider";
 
 const MintPage: NextPage = () => {
   const router = useRouter();
   const [file, setFile] = useState<File>();
   const [creatingListing, setCreatingListing] = useState(false);
+  const toast = useToast();
   const isMismatched = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
   const address = useAddress() as string;
@@ -26,10 +28,15 @@ const MintPage: NextPage = () => {
       setCreatingListing(true);
       try {
         e.preventDefault();
-
+        // Validate network first
         if (isMismatched) {
-          await switchNetwork?.(ChainId.Goerli);
-          return;
+          const switched = await switchNetwork?.(ChainId.Goerli);
+          if (switched?.error) {
+            throw new Error();
+          } else {
+            toast?.pushInfo("Network Switched, try again");
+            return;
+          }
         }
         const target = e.target as typeof e.target & {
           name: { value: string };
@@ -79,12 +86,16 @@ const MintPage: NextPage = () => {
           router.push(`/`);
         }
       } catch (error) {
-        console.error(error);
+        if (error instanceof Error) {
+          toast?.pushError("The transaction did not take place..");
+        } else {
+          console.log(error);
+        }
       } finally {
         setCreatingListing(false);
       }
     },
-    [address, nftCollection, file, upload, router, marketplace]
+    [address, nftCollection, file, upload, router, marketplace, isMismatched, switchNetwork, toast]
   );
 
   const handleUploadFile = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
