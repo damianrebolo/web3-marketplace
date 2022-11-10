@@ -9,6 +9,7 @@ const button = cva(["flex justify-center items-center font-semibold rounded-md t
       success: "bg-green-500 hover:bg-green-600",
       danger: "bg-red-500 hover:bg-red-600",
       warning: "bg-yellow-500 hover:bg-yellow-600 text-black",
+      "outline-warning": "bg-white text-yellow-500 hover:bg-yellow-600 hover:text-black",
       info: "bg-sky-500 hover:bg-sky-600 text-black",
       dark: "bg-gray-800 hover:bg-gray-900",
       light: "bg-zinc-100 hover:bg-zinc-200 text-black",
