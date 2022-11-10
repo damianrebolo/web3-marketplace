@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
 
 import { MarketplaceNavbar } from "../components/pages/Marketplace/Navbar";
-import { Layout } from "components/shared/core";
+import { Layout, MismatchAlert } from "components/shared/core";
 import ToastProvider from "components/shared/core/Toaster/ToasterProvider";
 
 import "../styles/globals.css";
@@ -17,6 +17,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
   >
     <ToastProvider variant="top_middle">
       <Layout>
+        <MismatchAlert />
         <MarketplaceNavbar />
         <Component {...pageProps} />
       </Layout>
