@@ -31,8 +31,13 @@ export type ToastContextType = {
 
 export const ToastContext = React.createContext<ToastContextType | undefined>(undefined);
 
-const uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2);
-
+const uniqueId = () => {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
 export const useToast = () => useContext(ToastContext);
 
 const DEFAULT_INTERVAL = 5000;
@@ -43,7 +48,7 @@ export default function ToastProvider({ children, variant }: ToastProviderProps)
   const Push = useCallback((message: string, type: TostMessageType, lifetime?: number, truncate?: Truncate) => {
     if (message) {
       const new_item: Toast = {
-        id: uniqueId,
+        id: uniqueId(),
         message: message,
         type: type,
         lifetime: lifetime ? lifetime : DEFAULT_INTERVAL,
@@ -58,7 +63,7 @@ export default function ToastProvider({ children, variant }: ToastProviderProps)
     (message: string | React.ReactNode, lifetime?: number, truncate?: Truncate) => {
       if (message) {
         const new_item: Toast = {
-          id: uniqueId,
+          id: uniqueId(),
           message: message,
           lifetime: lifetime ? lifetime : DEFAULT_INTERVAL,
           truncate: truncate,
