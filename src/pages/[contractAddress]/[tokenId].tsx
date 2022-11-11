@@ -71,7 +71,7 @@ const ListingsPage: NextPage = () => {
             <div className="flex flex-col bg-gray-200 dark:bg-gray-700 border border-gray-400 rounded-lg overflow-hidden">
               <div className="flex justify-between items-center p-3">
                 <span className="font-semibold">Chain: Goerli</span>
-                <Button variant="secondary" onClick={() => alert("favourite")}>
+                <Button variant="secondary" onClick={() => {}}>
                   <FavouriteIcon />
                 </Button>
               </div>
