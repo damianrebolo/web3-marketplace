@@ -15,5 +15,5 @@ export const Layout: React.FC<Props> = ({ children }) => {
   const address = useAddress();
 
   if (!address) return <Auth />;
-  return <>{children}</>;
+  return <div className="pb-5">{children}</div>;
 };

@@ -24,6 +24,7 @@ const Home: NextPage = () => (
                 currencyValue={listing?.buyoutCurrencyValuePerToken?.displayValue}
                 sellerAddress={listing?.sellerAddress}
                 id={listing?.id}
+                contractAddress={listing.assetContractAddress}
               />
             ))}
           </>
