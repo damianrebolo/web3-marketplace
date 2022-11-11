@@ -5,6 +5,8 @@ import { EtherIcon, UserIcon } from "../../shared/icons";
 import Card from "../../shared/ui/Card";
 import Link from "next/link";
 
+import { cutAddress } from "utils";
+
 interface Props {
   name: string | number | undefined;
   image: string | null | undefined;
@@ -33,15 +35,17 @@ export const MarketplaceCard: React.FC<Props> = ({
         <Card.Body>
           <div className="flex flex-nowrap justify-between items-center mb-5">
             <h3 className="text-2xl font-semibold uppercase">{name}</h3>
+          </div>
+
+          <h4 className="flex justify-between items-center flex-nowrap mb-3">
+            <div className="flex items-center text-xs">
+              <UserIcon />
+              <span>{cutAddress(sellerAddress)}</span>
+            </div>
             <div className="flex flex-nowrap items-center justify-end">
               <EtherIcon />
               <span className="text-md font-bold">{currencyValue}</span>
             </div>
-          </div>
-
-          <h4 className="flex justify-start items-center flex-nowrap mb-3">
-            <UserIcon />
-            <span className="ml-2 truncate text-xs">{sellerAddress}</span>
           </h4>
         </Card.Body>
       </Card>
