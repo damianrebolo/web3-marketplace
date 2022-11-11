@@ -84,7 +84,7 @@ const ListingsPage: NextPage = () => {
               />
             </div>
             {listing?.asset?.attributes && (
-              <div className="flex gap-2 p-5 bg-gray-200 dark:bg-gray-700 border border-gray-400 rounded-lg overflow-hidden">
+              <div className="flex flex-wrap justify-evenly items-center gap-2 p-5 bg-gray-200 dark:bg-gray-700 border border-gray-400 rounded-lg overflow-hidden">
                 {(listing?.asset?.attributes as []).map((attribute: any) => (
                   <div
                     className="flex flex-col items-center p-2 border border-cyan-700 rounded-md"
