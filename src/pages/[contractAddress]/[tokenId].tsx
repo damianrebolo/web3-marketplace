@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -13,6 +14,7 @@ import { FavouriteIcon } from "components/shared/icons";
 import { Loading } from "components/shared/core";
 
 const ListingsPage: NextPage = () => {
+  const [buying, setBuying] = useState(false);
   const router = useRouter();
   const { tokenId } = router.query;
 
@@ -29,6 +31,8 @@ const ListingsPage: NextPage = () => {
   }
 
   const onBuyNFT = async (id: string) => {
+    setBuying(true);
+
     try {
       // Validate network first
       if (isMismatched) {
@@ -41,13 +45,18 @@ const ListingsPage: NextPage = () => {
         }
       }
       // If network is correct
-      await contract?.buyoutListing(id, 1, address);
+      const tx = await contract?.buyoutListing(id, 1, address);
+      if (tx) {
+        router.push(`/`);
+      }
     } catch (error) {
       if (error instanceof Error) {
         toast?.pushError("The transaction did not take place..");
       } else {
         console.log(error);
       }
+    } finally {
+      setBuying(false);
     }
   };
   return (
@@ -101,8 +110,8 @@ const ListingsPage: NextPage = () => {
             <div className="flex flex-col bg-gray-200 dark:bg-gray-700 p-5 gap-3 border border-gray-400 rounded-lg overflow-hidden">
               <div className="text-base text-gray-400">Current Price</div>
               <div className="text-3xl font-semibold">{listing?.buyoutCurrencyValuePerToken.displayValue} ETH</div>
-              <Button variant="light" onClick={() => onBuyNFT(listing?.id as string)}>
-                Buy Now
+              <Button variant="light" onClick={() => onBuyNFT(listing?.id as string)} disabled={buying}>
+                {buying ? "Loading..." : "Buy Now"}
               </Button>
             </div>
             <div className="flex flex-col gap-3 p-5 bg-gray-200 dark:bg-gray-700 border border-gray-400 rounded-lg overflow-hidden">
