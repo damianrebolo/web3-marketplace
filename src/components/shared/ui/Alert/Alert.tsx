@@ -7,15 +7,13 @@ import { AlertActions } from "./Alert.Actions";
 const alertCva = cva("fixed top-4 left-0 right-0 z-50 w-full max-w-lg mx-auto p-4 mb-4 border rounded-lg", {
   variants: {
     variant: {
-      //   primary: "bg-blue-500 hover:bg-blue-600",
-      //   secondary: "bg-gray-500 hover:bg-gray-600",
-      //   success: "bg-green-500 hover:bg-green-600",
-      //   danger: "bg-red-500 hover:bg-red-600",
+      primary: "border-blue-800 bg-blue-300 text-black",
+      secondary: "border-gray-800 bg-gray-300 text-black",
+      success: "border-green-800 bg-green-300 text-black",
+      danger: "border-red-800 bg-red-300 text-black",
       warning: "border-yellow-800 bg-yellow-300 text-black",
-      //   info: "bg-sky-500 hover:bg-sky-600 text-black",
-      //   dark: "bg-gray-800 hover:bg-gray-900",
-      //   light: "bg-zinc-100 hover:bg-zinc-200 text-black",
-      //   link: "text-blue-500 hover:text-blue-600 underline underline-offset-4",
+      info: "border-sky-800 bg-sky-300 text-black",
+      light: "border-zinc-400 bg-zinc-100 text-black",
     },
   },
   defaultVariants: {
