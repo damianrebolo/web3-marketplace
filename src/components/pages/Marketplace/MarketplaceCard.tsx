@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { BigNumberish } from "ethers";
+import { BigNumber, BigNumberish } from "ethers";
 
 import { EtherIcon, UserIcon } from "../../shared/icons";
 import Card from "../../shared/ui/Card";
@@ -11,7 +11,7 @@ interface Props {
   name: string | number | undefined;
   image: string | null | undefined;
   sellerAddress: string;
-  id: BigNumberish;
+  id: string;
   currencyValue: string;
   contractAddress: string;
 }
