@@ -5,7 +5,7 @@ import { Loading, ErrorMessage } from "components/shared/core";
 import { ReactNode } from "react";
 
 interface Props {
-  children: (listings: (DirectListing | AuctionListing)[]) => ReactNode;
+  children: (listings: DirectListing[]) => ReactNode;
 }
 
 export const Listings: React.FC<Props> = ({ children }) => {
@@ -19,5 +19,5 @@ export const Listings: React.FC<Props> = ({ children }) => {
     return <ErrorMessage>{errorParsed?.reason}</ErrorMessage>;
   }
 
-  return <>{children(listings)}</>;
+  return <>{children(listings as DirectListing[])}</>;
 };
