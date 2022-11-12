@@ -1,7 +1,7 @@
 import { useContract, useListings } from "@thirdweb-dev/react";
 import { AuctionListing, DirectListing } from "@thirdweb-dev/sdk";
 
-import { Loading, Error } from "components/shared/core";
+import { Loading, ErrorMessage } from "components/shared/core";
 import { ReactNode } from "react";
 
 interface Props {
@@ -16,7 +16,7 @@ export const Listings: React.FC<Props> = ({ children }) => {
     return <Loading />;
   } else if (error) {
     const errorParsed = JSON.parse(JSON.stringify(error));
-    return <Error>{errorParsed?.reason}</Error>;
+    return <ErrorMessage>{errorParsed?.reason}</ErrorMessage>;
   }
 
   return <>{children(listings)}</>;
