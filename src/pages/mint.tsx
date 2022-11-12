@@ -92,8 +92,10 @@ const MintPage: NextPage = () => {
 
   return (
     <Container className="m-10">
+      <h1 className="w-full text-center my-8 text-2xl text-gray-700 dark:text-white">
+        Upload your NFT to the marketplace:
+      </h1>
       <Form onSubmit={(e) => handleMinNft(e)}>
-        <h1 className="my-8 text-2xl text-gray-700 dark:text-white">Upload your NFT to the marketplace:</h1>
         <Form.Group>
           <Form.File file={file} handleUploadFile={handleUploadFile} />
         </Form.Group>
