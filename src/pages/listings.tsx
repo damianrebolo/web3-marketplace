@@ -4,12 +4,14 @@ import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { ethers } from "ethers";
 import { DirectListing } from "@thirdweb-dev/sdk";
 
 import { Container, Table } from "components/shared/ui";
 import { Listings } from "components/pages/Listings";
+import { Button } from "components/shared/ui/Button";
 
 import { cutAddress } from "utils";
 
@@ -30,8 +32,12 @@ const ListingsPage: NextPage = () => {
         <meta property="og:title" content="Web3 Portfolio - Listings" key="title" />
       </Head>
       <Container className="m-10">
-        <h1 className="my-5 font-semibold text-xl text-gray-700 dark:text-white">Contract Listings</h1>
-
+        <div className="flex justify-between items-center my-5">
+          <h1 className="font-semibold text-xl text-gray-700 dark:text-white">All listings</h1>
+          <Link href="/create-listing">
+            <Button variant="secondary">Create Listing</Button>
+          </Link>
+        </div>
         <Listings>
           {(listings: DirectListing[]) => (
             <Table>
