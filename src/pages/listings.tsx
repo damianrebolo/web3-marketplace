@@ -1,14 +1,28 @@
+import { useCallback } from "react";
+
 import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
+
+import { ethers } from "ethers";
+import { DirectListing } from "@thirdweb-dev/sdk";
 
 import { Container, Table } from "components/shared/ui";
-
-import { cutAddress } from "utils";
-import { ethers } from "ethers";
 import { Listings } from "components/pages/Listings";
 
+import { cutAddress } from "utils";
+
 const ListingsPage: NextPage = () => {
+  const router = useRouter();
+
+  const handleRowClick = useCallback(
+    (id: string, contractAddress: string) => {
+      router.push(`/${contractAddress}/${id}`);
+    },
+    [router]
+  );
+
   return (
     <>
       <Head>
@@ -19,7 +33,7 @@ const ListingsPage: NextPage = () => {
         <h1 className="my-5 font-semibold text-xl text-gray-700 dark:text-white">Contract Listings</h1>
 
         <Listings>
-          {(listings) => (
+          {(listings: DirectListing[]) => (
             <Table>
               <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -45,7 +59,11 @@ const ListingsPage: NextPage = () => {
               </thead>
               <tbody>
                 {listings?.map((listing) => (
-                  <tr key={listing.id} className="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
+                  <tr
+                    key={listing.id}
+                    onClick={() => handleRowClick(listing.id, listing.assetContractAddress)}
+                    className="cursor-pointer bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700 hover:dark:bg-gray-600"
+                  >
                     <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                       {listing.id}
                     </th>
