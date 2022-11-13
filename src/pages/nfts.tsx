@@ -28,7 +28,7 @@ const NftsPage: NextPage = memo(() => {
         <div className="flex justify-between items-center my-5">
           <h1 className="font-semibold text-xl text-gray-700 dark:text-white">NFT Collection</h1>
           <Link href="/mint">
-            <Button variant="secondary">Mint + Listing</Button>
+            <Button variant="secondary">Mint</Button>
           </Link>
         </div>
 

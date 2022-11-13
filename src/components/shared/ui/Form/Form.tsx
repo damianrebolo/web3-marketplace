@@ -3,6 +3,7 @@ import { cva, type VariantProps } from "cva";
 import { FormControl } from "./Form.Control";
 import { FormFile } from "./Form.File";
 import { FormGroup } from "./Form.Group";
+import { FormList } from "./Form.List";
 
 const formCva = cva(["mx-auto flex flex-col items-center my-4"], {
   variants: {
@@ -27,4 +28,5 @@ export default Object.assign(Form, {
   Group: FormGroup,
   Control: FormControl,
   File: FormFile,
+  List: FormList,
 });

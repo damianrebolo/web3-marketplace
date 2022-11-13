@@ -41,11 +41,9 @@ const MintPage: NextPage = () => {
         const target = e.target as typeof e.target & {
           name: { value: string };
           description: { value: string };
-          price: { value: string };
         };
         const name = target.name.value;
         const description = target.description.value;
-        const price = target.price.value;
         const uris = await upload({
           data: [file],
         });
@@ -70,20 +68,8 @@ const MintPage: NextPage = () => {
 
         const nft = await nftCollection?.signature.mint(signedPayload);
 
-        const mintedTokenId = nft?.id as BigNumber;
-
-        const tx = await marketplace?.direct.createListing({
-          assetContractAddress: process.env.NEXT_PUBLIC_CONTRACT_NFTS as string, // Contract Address of the NFT
-          buyoutPricePerToken: price, // Maximum price, the auction will end immediately if a user pays this price.
-          currencyContractAddress: NATIVE_TOKEN_ADDRESS, // NATIVE_TOKEN_ADDRESS is the crpyto curency that is native to the network. i.e. Goerli ETH.
-          listingDurationInSeconds: 60 * 60 * 24 * 7 * 4 * 12, // When the auction will be closed and no longer accept bids (1 Week)
-          quantity: 1, // How many of the NFTs are being listed (useful for ERC 1155 tokens)
-          startTimestamp: new Date(0), // When the listing will start
-          tokenId: mintedTokenId, // Token ID of the NFT.
-        });
-
-        if (tx) {
-          router.push(`/`);
+        if (nft) {
+          router.push(`/nfts`);
         }
       } catch (error) {
         if (error instanceof Error) {
@@ -95,7 +81,7 @@ const MintPage: NextPage = () => {
         setCreatingListing(false);
       }
     },
-    [address, nftCollection, file, upload, router, marketplace, isMismatched, switchNetwork, toast]
+    [address, nftCollection, file, upload, router, isMismatched, switchNetwork, toast]
   );
 
   const handleUploadFile = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
@@ -106,23 +92,19 @@ const MintPage: NextPage = () => {
 
   return (
     <Container className="m-10">
+      <h1 className="w-full text-center my-8 text-2xl text-gray-700 dark:text-white">Upload your NFT:</h1>
       <Form onSubmit={(e) => handleMinNft(e)}>
-        <h1 className="my-8 text-2xl text-gray-700 dark:text-white">Upload your NFT to the marketplace:</h1>
         <Form.Group>
           <Form.File file={file} handleUploadFile={handleUploadFile} />
         </Form.Group>
-
         <Form.Group>
           <Form.Control type="text" name="name" placeholder="Name" />
         </Form.Group>
         <Form.Group>
           <Form.Control type="text" name="description" placeholder="Description" />
         </Form.Group>
-        <Form.Group>
-          <Form.Control type="text" name="price" placeholder="Price" />
-        </Form.Group>
         <Button className="mt-8" type="submit" disabled={creatingListing}>
-          {creatingListing ? "Loading..." : "Mint + Listing"}
+          {creatingListing ? "Loading..." : "Mint"}
         </Button>
       </Form>
     </Container>
