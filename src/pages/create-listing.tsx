@@ -55,7 +55,7 @@ const CreateListingPage: NextPage = () => {
         });
 
         if (tx) {
-          router.push(`/`);
+          router.push(`/listings`);
         }
       } catch (error) {
         if (error instanceof Error) {

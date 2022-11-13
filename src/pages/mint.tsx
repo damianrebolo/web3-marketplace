@@ -69,7 +69,7 @@ const MintPage: NextPage = () => {
         const nft = await nftCollection?.signature.mint(signedPayload);
 
         if (nft) {
-          router.push(`/`);
+          router.push(`/nfts`);
         }
       } catch (error) {
         if (error instanceof Error) {
@@ -81,7 +81,7 @@ const MintPage: NextPage = () => {
         setCreatingListing(false);
       }
     },
-    [address, nftCollection, file, upload, router, marketplace, isMismatched, switchNetwork, toast]
+    [address, nftCollection, file, upload, router, isMismatched, switchNetwork, toast]
   );
 
   const handleUploadFile = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
@@ -92,9 +92,7 @@ const MintPage: NextPage = () => {
 
   return (
     <Container className="m-10">
-      <h1 className="w-full text-center my-8 text-2xl text-gray-700 dark:text-white">
-        Upload your NFT to the marketplace:
-      </h1>
+      <h1 className="w-full text-center my-8 text-2xl text-gray-700 dark:text-white">Upload your NFT:</h1>
       <Form onSubmit={(e) => handleMinNft(e)}>
         <Form.Group>
           <Form.File file={file} handleUploadFile={handleUploadFile} />
