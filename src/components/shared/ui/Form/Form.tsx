@@ -3,6 +3,7 @@ import { cva, type VariantProps } from "cva";
 import { FormControl } from "./Form.Control";
 import { FormFile } from "./Form.File";
 import { FormGroup } from "./Form.Group";
+import { FormLabel } from "./Form.Label";
 import { FormList } from "./Form.List";
 
 const formCva = cva(["mx-auto flex flex-col items-center my-4"], {
@@ -26,6 +27,7 @@ export const Form: React.FC<FormProps> = ({ size, onSubmit, ...props }) => (
 
 export default Object.assign(Form, {
   Group: FormGroup,
+  Label: FormLabel,
   Control: FormControl,
   File: FormFile,
   List: FormList,
