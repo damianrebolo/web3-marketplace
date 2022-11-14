@@ -5,19 +5,17 @@ import { Loading, ErrorMessage } from "components/shared/core";
 import { ReactNode } from "react";
 
 interface Props {
-  children: (listings: DirectListing[]) => ReactNode;
+  children: (listings: DirectListing[], isLoading: boolean) => ReactNode;
 }
 
 export const Listings: React.FC<Props> = ({ children }) => {
   const { contract } = useContract(process.env.NEXT_PUBLIC_CONTRACT_MARKETPLACE as string, "marketplace");
-  const { data: listings = [], isLoading, error } = useListings(contract, { start: 0, count: 100 });
+  const { data: listings = [], isLoading, error } = useListings(contract);
 
-  if (isLoading) {
-    return <Loading />;
-  } else if (error) {
+  if (error) {
     const errorParsed = JSON.parse(JSON.stringify(error));
     return <ErrorMessage>{errorParsed?.reason}</ErrorMessage>;
   }
 
-  return <>{children(listings as DirectListing[])}</>;
+  return <>{children(listings as DirectListing[], isLoading)}</>;
 };
