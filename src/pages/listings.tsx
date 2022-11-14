@@ -1,29 +1,63 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
-import { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
 import { useRouter } from "next/router";
+import { NextPage } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
-import { ethers } from "ethers";
 import { DirectListing } from "@thirdweb-dev/sdk";
-
-import { Container, Table } from "components/shared/ui";
-import { Listings } from "components/pages/Listings";
-import { Button } from "components/shared/ui/Button";
+import { Column } from "react-table";
 
 import { cutAddress } from "utils";
+import Head from "next/head";
+import { Container } from "components/shared/ui";
+import { Listings } from "components/pages/Listings";
+import { Table } from "components/shared/ui/Table/";
+import { Button } from "components/shared/ui/Button";
 
 const ListingsPage: NextPage = () => {
   const router = useRouter();
 
-  const handleRowClick = useCallback(
-    (id: string, contractAddress: string) => {
-      router.push(`/${contractAddress}/${id}`);
-    },
-    [router]
+  const columns: Array<Column<DirectListing>> = useMemo(
+    () => [
+      {
+        Header: () => <div className="text-center">LISTING ID</div>,
+        id: "id",
+        accessor: (row: DirectListing) => <div className="text-center">{row.id}</div>,
+      },
+      {
+        Header: "MEDIA",
+        id: "media",
+        accessor: (row: DirectListing) => (
+          <Image src={row.asset.image as string} height="128" width="128" alt={row.asset.name as string} />
+        ),
+      },
+      {
+        Header: "NAME",
+        id: "name",
+        accessor: (row: DirectListing) => row.asset.name,
+      },
+      {
+        Header: "SELLER",
+        id: "sellerAddress",
+        accessor: (row: DirectListing) => cutAddress(row.sellerAddress),
+      },
+      {
+        Header: "PRICE",
+        id: "price",
+        accessor: (row: DirectListing) => row.buyoutCurrencyValuePerToken.displayValue,
+      },
+      {
+        Header: "TYPE",
+        id: "type",
+        accessor: (row: DirectListing) => (row.type === 0 ? "Direct Listing" : "Auction Listing"),
+      },
+    ],
+
+    []
   );
+
+  const onRowClicked = useCallback((obj: DirectListing) => router.push(`/${obj.assetContractAddress}/${obj.id}`), []);
 
   return (
     <>
@@ -39,56 +73,14 @@ const ListingsPage: NextPage = () => {
           </Link>
         </div>
         <Listings>
-          {(listings: DirectListing[]) => (
-            <Table>
-              <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th scope="col" className="py-3 px-6">
-                    Listing Id
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    Media
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    Name
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    Seller
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    Price
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    Type
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {listings?.map((listing) => (
-                  <tr
-                    key={listing.id}
-                    onClick={() => handleRowClick(listing.id, listing.assetContractAddress)}
-                    className="cursor-pointer bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700 hover:dark:bg-gray-600"
-                  >
-                    <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      {listing.id}
-                    </th>
-                    <td className="py-4 px-6 relative">
-                      <Image
-                        src={listing.asset.image as string}
-                        alt={listing.asset.name as string}
-                        height="128"
-                        width="128"
-                      />
-                    </td>
-                    <td className="py-4 px-6">{listing.asset.name}</td>
-                    <td className="py-4 px-6">{cutAddress(listing.sellerAddress)}</td>
-                    <td className="py-4 px-6">{ethers.utils.formatEther(listing.buyoutPrice)}</td>
-                    <td className="py-4 px-6">{listing.type === 0 ? "Direct Listing" : "Auction Listing"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+          {(listings: DirectListing[], isLoading) => (
+            <Table
+              data={listings}
+              columns={columns}
+              pagination={true}
+              isLoading={isLoading}
+              onRowClicked={onRowClicked}
+            />
           )}
         </Listings>
       </Container>
