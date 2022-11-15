@@ -1,27 +1,67 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
-import { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
 import { useRouter } from "next/router";
+import { NextPage } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import Head from "next/head";
 
-import { ethers } from "ethers";
-import { DirectListing } from "@thirdweb-dev/sdk";
-
-import { Container, Table } from "components/shared/ui";
-import { Listings } from "components/pages/Listings";
-import { Button } from "components/shared/ui/Button";
+import { ColumnDef } from "@tanstack/react-table";
+import { DirectListing, ThirdwebSDK } from "@thirdweb-dev/sdk";
 
 import { cutAddress } from "utils";
 
-const ListingsPage: NextPage = () => {
+import { Container } from "components/shared/ui";
+import { ReactTable } from "components/shared/ui/Table";
+import { Button } from "components/shared/ui/Button";
+
+interface ListingPageProps {
+  listings: DirectListing[];
+}
+
+const ListingsPage: NextPage<ListingPageProps> = ({ listings }) => {
   const router = useRouter();
 
-  const handleRowClick = useCallback(
-    (id: string, contractAddress: string) => {
-      router.push(`/${contractAddress}/${id}`);
-    },
+  const ListingsColumns: ColumnDef<DirectListing>[] = useMemo(
+    () => [
+      {
+        header: () => <div className="text-center">LISTING ID</div>,
+        id: "id",
+        accessorFn: (row: DirectListing) => <div className="text-center">{row.id}</div>,
+        cell: (info: { getValue: () => any }) => info.getValue(),
+      },
+      {
+        header: "MEDIA",
+        id: "media",
+        accessorFn: (row: DirectListing) => (
+          <Image src={row.asset.image as string} height="90" width="90" alt={row.asset.name as string} />
+        ),
+        cell: (info: { getValue: () => any }) => info.getValue(),
+      },
+      {
+        header: "NAME",
+        accessorKey: "asset.name",
+      },
+      {
+        header: "SELLER",
+        id: "sellerAddress",
+        accessorFn: (row: DirectListing) => cutAddress(row.sellerAddress),
+      },
+      {
+        header: "PRICE",
+        accessorKey: "buyoutCurrencyValuePerToken.displayValue",
+      },
+      {
+        header: "TYPE",
+        id: "type",
+        accessorFn: (row: DirectListing) => (row.type === 0 ? "Direct Listing" : "Auction Listing"),
+      },
+    ],
+    []
+  );
+
+  const onRowClicked = useCallback(
+    (obj: DirectListing) => router.push(`/${obj.assetContractAddress}/${obj.id}`),
     [router]
   );
 
@@ -38,62 +78,27 @@ const ListingsPage: NextPage = () => {
             <Button variant="secondary">Create Listing</Button>
           </Link>
         </div>
-        <Listings>
-          {(listings: DirectListing[]) => (
-            <Table>
-              <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th scope="col" className="py-3 px-6">
-                    Listing Id
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    Media
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    Name
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    Seller
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    Price
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    Type
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {listings?.map((listing) => (
-                  <tr
-                    key={listing.id}
-                    onClick={() => handleRowClick(listing.id, listing.assetContractAddress)}
-                    className="cursor-pointer bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700 hover:dark:bg-gray-600"
-                  >
-                    <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      {listing.id}
-                    </th>
-                    <td className="py-4 px-6 relative">
-                      <Image
-                        src={listing.asset.image as string}
-                        alt={listing.asset.name as string}
-                        height="128"
-                        width="128"
-                      />
-                    </td>
-                    <td className="py-4 px-6">{listing.asset.name}</td>
-                    <td className="py-4 px-6">{cutAddress(listing.sellerAddress)}</td>
-                    <td className="py-4 px-6">{ethers.utils.formatEther(listing.buyoutPrice)}</td>
-                    <td className="py-4 px-6">{listing.type === 0 ? "Direct Listing" : "Auction Listing"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          )}
-        </Listings>
+        <ReactTable<DirectListing>
+          data={listings}
+          columns={ListingsColumns}
+          pagination
+          isClickable
+          onRowClicked={onRowClicked}
+        />
       </Container>
     </>
   );
 };
+
+export async function getServerSideProps() {
+  const sdk = new ThirdwebSDK("goerli");
+
+  const contract = await sdk.getContract(process.env.NEXT_PUBLIC_CONTRACT_MARKETPLACE as string, "marketplace");
+  const listings = (await contract.getAllListings()) as DirectListing[];
+
+  return {
+    props: { listings: JSON.parse(JSON.stringify(listings)) }, // will be passed to the page component as props
+  };
+}
 
 export default ListingsPage;

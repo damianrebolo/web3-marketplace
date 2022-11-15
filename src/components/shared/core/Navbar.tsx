@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 import Image from "next/image";
 
-import { WalletIcon } from "../../shared/icons";
-import Nav from "../../shared/ui/Nav";
-import Navbar from "../../shared/ui/Navbar";
-import OffCanvas from "../../shared/ui/OffCanvas";
-import { WalletStatus } from "../../shared/core/WalletStatus";
+import { WalletIcon } from "../icons";
+import Nav from "../ui/Nav";
+import Navbar from "../ui/Navbar";
+import OffCanvas from "../ui/OffCanvas";
+import { WalletStatus } from "./WalletStatus";
 
 export const MarketplaceNavbar: React.FC = () => (
   <Navbar>
