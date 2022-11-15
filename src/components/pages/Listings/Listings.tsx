@@ -1,7 +1,7 @@
 import { useContract, useListings } from "@thirdweb-dev/react";
-import { AuctionListing, DirectListing } from "@thirdweb-dev/sdk";
+import { DirectListing } from "@thirdweb-dev/sdk";
 
-import { Loading, ErrorMessage } from "components/shared/core";
+import { ErrorMessage } from "components/shared/core";
 import { ReactNode } from "react";
 
 interface Props {
