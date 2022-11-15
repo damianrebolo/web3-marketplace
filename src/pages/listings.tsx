@@ -1,4 +1,4 @@
-import { useCallback, useMemo, memo } from "react";
+import { useCallback, useMemo } from "react";
 
 import { useRouter } from "next/router";
 import { NextPage } from "next";
@@ -7,15 +7,13 @@ import Link from "next/link";
 import Head from "next/head";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { DirectListing, NFT, ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { DirectListing, ThirdwebSDK } from "@thirdweb-dev/sdk";
 
 import { cutAddress } from "utils";
 
 import { Container } from "components/shared/ui";
-import { Listings } from "components/pages/Listings";
 import { ReactTable } from "components/shared/ui/Table";
 import { Button } from "components/shared/ui/Button";
-import { useRender } from "hooks";
 
 interface ListingPageProps {
   listings: DirectListing[];
@@ -62,7 +60,10 @@ const ListingsPage: NextPage<ListingPageProps> = ({ listings }) => {
     []
   );
 
-  const onRowClicked = useCallback((obj: DirectListing) => router.push(`/${obj.assetContractAddress}/${obj.id}`), []);
+  const onRowClicked = useCallback(
+    (obj: DirectListing) => router.push(`/${obj.assetContractAddress}/${obj.id}`),
+    [router]
+  );
 
   return (
     <>

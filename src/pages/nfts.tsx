@@ -11,7 +11,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ReactTable } from "components/shared/ui/Table";
 import { Container } from "components/shared/ui";
 import { Button } from "components/shared/ui/Button";
-import { NftList } from "components/pages/nfts";
 
 import { cutAddress } from "utils";
 

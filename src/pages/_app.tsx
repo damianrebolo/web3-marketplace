@@ -1,15 +1,26 @@
 import type { AppProps } from "next/app";
-import dynamic from "next/dynamic";
+import Router from "next/router";
 
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
+import NProgress from "nprogress";
 
 import { MarketplaceNavbar } from "../components/shared/core/Navbar";
 import { Layout, MismatchAlert } from "components/shared/core";
 import ToastProvider from "components/shared/core/Toaster/ToasterProvider";
 
+import "nprogress/nprogress.css";
 import "../styles/globals.css";
 
-const ProgressBar = dynamic(() => import("../components/shared/core/ProgressBar"), { ssr: false });
+NProgress.configure({
+  minimum: 0.3,
+  easing: "ease",
+  speed: 800,
+  showSpinner: false,
+});
+
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <ThirdwebProvider
@@ -19,7 +30,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
     }}
   >
     <ToastProvider variant="top_middle">
-      <ProgressBar />
       <Layout>
         <MismatchAlert />
         <MarketplaceNavbar />
