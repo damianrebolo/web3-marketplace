@@ -13,7 +13,7 @@ import { cutAddress } from "utils";
 
 import { Container } from "components/shared/ui";
 import { Listings } from "components/pages/Listings";
-import { Table } from "components/shared/ui/Table/";
+import { ReactTable } from "components/shared/ui/Table";
 import { Button } from "components/shared/ui/Button";
 
 const ListingsPage: NextPage = () => {
@@ -71,11 +71,12 @@ const ListingsPage: NextPage = () => {
         </div>
         <Listings>
           {(listings: DirectListing[], isLoading) => (
-            <Table<DirectListing>
+            <ReactTable<DirectListing>
               data={listings}
               columns={ListingsColumns}
-              pagination={true}
+              pagination
               isLoading={isLoading}
+              isClickable
               onRowClicked={onRowClicked}
             />
           )}

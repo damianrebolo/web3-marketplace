@@ -7,12 +7,12 @@ import { useRouter } from "next/router";
 import { NFT } from "@thirdweb-dev/sdk";
 import { ColumnDef } from "@tanstack/react-table";
 
+import { ReactTable } from "components/shared/ui/Table";
 import { Container } from "components/shared/ui";
 import { Button } from "components/shared/ui/Button";
 import { NftList } from "components/pages/nfts";
 
 import { cutAddress } from "utils";
-import { Table } from "components/shared/ui/Table/";
 
 const NftsPage: NextPage = () => {
   const router = useRouter();
@@ -61,7 +61,7 @@ const NftsPage: NextPage = () => {
           </Link>
         </div>
         <NftList>
-          {(nfts, isLoading) => <Table<NFT> data={nfts} columns={nftColumns} pagination={true} isLoading={isLoading} />}
+          {(nfts, isLoading) => <ReactTable<NFT> data={nfts} columns={nftColumns} pagination isLoading={isLoading} />}
         </NftList>
       </Container>
     </>
