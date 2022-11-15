@@ -1,10 +1,11 @@
+import { useMemo } from "react";
+
 import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-import { useRouter } from "next/router";
 
-import { NFT } from "@thirdweb-dev/sdk";
+import { NFT, ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { ColumnDef } from "@tanstack/react-table";
 
 import { ReactTable } from "components/shared/ui/Table";
@@ -14,38 +15,43 @@ import { NftList } from "components/pages/nfts";
 
 import { cutAddress } from "utils";
 
-const NftsPage: NextPage = () => {
-  const router = useRouter();
+interface NftsPageProps {
+  nfts: NFT[];
+}
 
-  const nftColumns: ColumnDef<NFT>[] = [
-    {
-      header: () => <div className="text-center">TOKEN ID</div>,
-      id: "tokenId",
-      accessorFn: (row: NFT) => <div className="text-center">{row.metadata.id}</div>,
-      cell: (info: { getValue: () => any }) => info.getValue(),
-    },
-    {
-      header: "MEDIA",
-      id: "media",
-      accessorFn: (row: NFT) => (
-        <Image src={row.metadata.image as string} height="90" width="90" alt={row.metadata.name as string} />
-      ),
-      cell: (info: { getValue: () => any }) => info.getValue(),
-    },
-    {
-      header: "NAME",
-      accessorKey: "metadata.name",
-    },
-    {
-      header: "DESCRIPTION",
-      accessorKey: "metadata.description",
-    },
-    {
-      header: "OWNER",
-      id: "owner",
-      accessorFn: (row: NFT) => cutAddress(row.owner),
-    },
-  ];
+const NftsPage: NextPage<NftsPageProps> = ({ nfts }) => {
+  const nftColumns: ColumnDef<NFT>[] = useMemo(
+    () => [
+      {
+        header: () => <div className="text-center">TOKEN ID</div>,
+        id: "tokenId",
+        accessorFn: (row: NFT) => <div className="text-center">{row.metadata.id}</div>,
+        cell: (info: { getValue: () => any }) => info.getValue(),
+      },
+      {
+        header: "MEDIA",
+        id: "media",
+        accessorFn: (row: NFT) => (
+          <Image src={row.metadata.image as string} height="90" width="90" alt={row.metadata.name as string} />
+        ),
+        cell: (info: { getValue: () => any }) => info.getValue(),
+      },
+      {
+        header: "NAME",
+        accessorKey: "metadata.name",
+      },
+      {
+        header: "DESCRIPTION",
+        accessorKey: "metadata.description",
+      },
+      {
+        header: "OWNER",
+        id: "owner",
+        accessorFn: (row: NFT) => cutAddress(row.owner),
+      },
+    ],
+    []
+  );
 
   return (
     <>
@@ -60,12 +66,21 @@ const NftsPage: NextPage = () => {
             <Button variant="secondary">Mint</Button>
           </Link>
         </div>
-        <NftList>
-          {(nfts, isLoading) => <ReactTable<NFT> data={nfts} columns={nftColumns} pagination isLoading={isLoading} />}
-        </NftList>
+        <ReactTable<NFT> data={nfts} columns={nftColumns} pagination />
       </Container>
     </>
   );
 };
+
+export async function getServerSideProps() {
+  const sdk = new ThirdwebSDK("goerli");
+
+  const contract = await sdk.getContract(process.env.NEXT_PUBLIC_CONTRACT_NFTS as string, "nft-collection");
+  const nfts = await contract.getAll();
+
+  return {
+    props: { nfts: JSON.parse(JSON.stringify(nfts)) }, // will be passed to the page component as props
+  };
+}
 
 export default NftsPage;

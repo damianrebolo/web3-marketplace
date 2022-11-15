@@ -7,7 +7,6 @@ type TableProps<T> = {
   columns: ColumnDef<T>[];
   data: T[];
   pagination: boolean;
-  isLoading: boolean;
   isClickable?: boolean;
   onRowClicked?: (obj: T) => Promise<boolean>;
 };
@@ -16,7 +15,6 @@ export const ReactTable = <T extends object>({
   data,
   columns,
   pagination,
-  isLoading,
   isClickable = false,
   onRowClicked,
 }: TableProps<T>) => {
@@ -58,7 +56,6 @@ export const ReactTable = <T extends object>({
             ))}
           </Table.Body>
         </Table>
-        {isLoading && <Loading />}
       </Table.Container>
     </>
   );
