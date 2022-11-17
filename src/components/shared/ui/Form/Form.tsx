@@ -9,6 +9,7 @@ import { FormFile } from "./Form.File";
 import { FormGroup } from "./Form.Group";
 import { FormImagePreview } from "./Form.ImagePreview";
 import { FormList } from "./Form.List";
+import { FormListItem } from "./Form.ListItem";
 import { FormTextArea } from "./Form.TextArea";
 import { FormUpload } from "./Form.Upload";
 
@@ -39,6 +40,7 @@ export default Object.assign(Form, {
   Field: FormField,
   TextArea: FormTextArea,
   ErrorMessage: FormErrorMessage,
+  ListItem: FormListItem,
 
   File: FormFile,
   List: FormList,
