@@ -86,21 +86,21 @@ const ValidationSchemaExample: NextPage = () => (
                   </Form.Group>
                   {values.properties.map((friend, index) => (
                     <Form.Group key={index} className="gap-x-3">
-                      <Form.Col col={5}>
+                      <Form.Col col="5">
                         <Form.Field name={`properties.${index}.trait_type`} placeholder="trait_type" type="text" />
                       </Form.Col>
-                      <Form.Col col={6}>
+                      <Form.Col col="6">
                         <Form.Field name={`properties.${index}.value`} placeholder="value" type="text" />
                       </Form.Col>
-                      <Form.Col col={1} className="self-center place-self-end">
+                      <Form.Col className="self-center place-self-end">
                         <Button className="col-span-1" size="sm" variant="secondary" onClick={() => remove(index)}>
                           X
                         </Button>
                       </Form.Col>
-                      <Form.Col col={5}>
+                      <Form.Col col="5">
                         <Form.ErrorMessage name={`properties.${index}.trait_type`} />
                       </Form.Col>
-                      <Form.Col col={6}>
+                      <Form.Col col="6">
                         <Form.ErrorMessage name={`properties.${index}.value`} />
                       </Form.Col>
                     </Form.Group>

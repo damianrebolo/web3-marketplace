@@ -124,21 +124,21 @@ const MintPage: NextPage = () => {
                     </Form.Group>
                     {values.attributes.map((friend, index) => (
                       <Form.Group key={index} className="gap-x-3">
-                        <Form.Col col={5}>
+                        <Form.Col col="5">
                           <Form.Field name={`attributes.${index}.trait_type`} placeholder="trait_type" type="text" />
                         </Form.Col>
-                        <Form.Col col={6}>
+                        <Form.Col col="6">
                           <Form.Field name={`attributes.${index}.value`} placeholder="value" type="text" />
                         </Form.Col>
-                        <Form.Col col={1} className="self-center place-self-end">
+                        <Form.Col className="self-center place-self-end">
                           <Button className="col-span-1" size="sm" variant="secondary" onClick={() => remove(index)}>
                             X
                           </Button>
                         </Form.Col>
-                        <Form.Col col={5}>
+                        <Form.Col col="5">
                           <Form.ErrorMessage name={`attributes.${index}.trait_type`} />
                         </Form.Col>
-                        <Form.Col col={6}>
+                        <Form.Col col="6">
                           <Form.ErrorMessage name={`attributes.${index}.value`} />
                         </Form.Col>
                       </Form.Group>
