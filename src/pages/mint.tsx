@@ -11,7 +11,7 @@ import { Container } from "components/shared/ui";
 import { Button } from "components/shared/ui/Button";
 import Form from "components/shared/ui/Form";
 import { useToast } from "components/shared/core/Toaster/ToasterProvider";
-import { initialValues, mintSchema, propertiesInitialValues, SUPPORTED_FORMATS } from "constants/mint";
+import { initialValues, mintSchema, attrInitialValues, SUPPORTED_FORMATS } from "constants/mint";
 
 const MintPage: NextPage = () => {
   const router = useRouter();
@@ -49,7 +49,7 @@ const MintPage: NextPage = () => {
             name: nftValues.name,
             description: nftValues.description,
             image: uris[0],
-            properties: nftValues.properties,
+            attributes: nftValues.attributes,
           }),
         });
 
@@ -106,7 +106,7 @@ const MintPage: NextPage = () => {
               </Form.Group>
             </Form.Container>
             <Form.Container>
-              <FieldArray name="properties">
+              <FieldArray name="attributes">
                 {({ remove, push }) => (
                   <>
                     <Form.Group className="place-items-end">
@@ -116,19 +116,19 @@ const MintPage: NextPage = () => {
                         variant="secondary"
                         onClick={(e) => {
                           e.preventDefault();
-                          setFieldValue("properties", [propertiesInitialValues]);
+                          setFieldValue("attributes", [attrInitialValues]);
                         }}
                       >
                         Reset
                       </Button>
                     </Form.Group>
-                    {values.properties.map((friend, index) => (
+                    {values.attributes.map((friend, index) => (
                       <Form.Group key={index} className="gap-x-3">
                         <Form.Col col={5}>
-                          <Form.Field name={`properties.${index}.trait_type`} placeholder="trait_type" type="text" />
+                          <Form.Field name={`attributes.${index}.trait_type`} placeholder="trait_type" type="text" />
                         </Form.Col>
                         <Form.Col col={6}>
-                          <Form.Field name={`properties.${index}.value`} placeholder="value" type="text" />
+                          <Form.Field name={`attributes.${index}.value`} placeholder="value" type="text" />
                         </Form.Col>
                         <Form.Col col={1} className="self-center place-self-end">
                           <Button className="col-span-1" size="sm" variant="secondary" onClick={() => remove(index)}>
@@ -136,10 +136,10 @@ const MintPage: NextPage = () => {
                           </Button>
                         </Form.Col>
                         <Form.Col col={5}>
-                          <Form.ErrorMessage name={`properties.${index}.trait_type`} />
+                          <Form.ErrorMessage name={`attributes.${index}.trait_type`} />
                         </Form.Col>
                         <Form.Col col={6}>
-                          <Form.ErrorMessage name={`properties.${index}.value`} />
+                          <Form.ErrorMessage name={`attributes.${index}.value`} />
                         </Form.Col>
                       </Form.Group>
                     ))}

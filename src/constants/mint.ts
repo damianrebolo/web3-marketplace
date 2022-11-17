@@ -19,7 +19,7 @@ export const mintSchema = Yup.object().shape({
   ),
 });
 
-export const propertiesInitialValues = {
+export const attrInitialValues = {
   trait_type: "",
   value: "",
 };
@@ -28,5 +28,5 @@ export const initialValues = {
   name: "",
   description: "",
   file: null,
-  properties: [propertiesInitialValues],
+  attributes: [attrInitialValues],
 };
