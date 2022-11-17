@@ -2,10 +2,8 @@ import { cva, cx, type VariantProps } from "cva";
 import { FormCol } from "./Form.Col";
 import { FormContainer } from "./Form.Container";
 
-import { FormControl } from "./Form.Control";
 import { FormErrorMessage } from "./Form.ErrorMessage";
 import { FormField } from "./Form.Field";
-import { FormFile } from "./Form.File";
 import { FormGroup } from "./Form.Group";
 import { FormImagePreview } from "./Form.ImagePreview";
 import { FormList } from "./Form.List";
@@ -40,9 +38,6 @@ export default Object.assign(Form, {
   Field: FormField,
   TextArea: FormTextArea,
   ErrorMessage: FormErrorMessage,
-  ListItem: FormListItem,
-
-  File: FormFile,
   List: FormList,
-  Control: FormControl,
+  ListItem: FormListItem,
 });

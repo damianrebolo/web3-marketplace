@@ -1,5 +1,5 @@
 import { cva, cx, type VariantProps } from "cva";
-import { Field, FieldAttributes, useField } from "formik";
+import { Field, FieldAttributes } from "formik";
 
 const fromFieldCva = cva(
   ["w-full bg-transparent border border-solid border-gray-500 rounded-lg text-white h-12 py-0 px-4 text-base"],
