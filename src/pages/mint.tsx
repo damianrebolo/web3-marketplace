@@ -2,32 +2,31 @@ import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 
-import { ChainId, NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
+import { ChainId } from "@thirdweb-dev/sdk";
 import { useAddress, useContract, useNetwork, useNetworkMismatch, useStorageUpload } from "@thirdweb-dev/react";
-import { BigNumber } from "ethers";
+
+import { Formik, Form as FormikForm, FieldArray } from "formik";
 
 import { Container } from "components/shared/ui";
 import { Button } from "components/shared/ui/Button";
 import Form from "components/shared/ui/Form";
 import { useToast } from "components/shared/core/Toaster/ToasterProvider";
+import { initialValues, mintSchema, attrInitialValues, SUPPORTED_FORMATS } from "constants/mint";
 
 const MintPage: NextPage = () => {
   const router = useRouter();
-  const [file, setFile] = useState<File>();
-  const [creatingListing, setCreatingListing] = useState(false);
+  const [minting, setMinting] = useState(false);
   const toast = useToast();
   const isMismatched = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
   const address = useAddress() as string;
   const { mutateAsync: upload } = useStorageUpload();
   const { contract: nftCollection } = useContract(process.env.NEXT_PUBLIC_CONTRACT_NFTS, "nft-collection");
-  const { contract: marketplace } = useContract(process.env.NEXT_PUBLIC_CONTRACT_MARKETPLACE as string, "marketplace");
 
   const handleMinNft = useCallback(
-    async (e: FormEvent<HTMLFormElement>) => {
-      setCreatingListing(true);
+    async (nftValues: typeof initialValues) => {
+      setMinting(true);
       try {
-        e.preventDefault();
         // Validate network first
         if (isMismatched) {
           const switched = await switchNetwork?.(ChainId.Goerli);
@@ -38,23 +37,19 @@ const MintPage: NextPage = () => {
             return;
           }
         }
-        const target = e.target as typeof e.target & {
-          name: { value: string };
-          description: { value: string };
-        };
-        const name = target.name.value;
-        const description = target.description.value;
+
         const uris = await upload({
-          data: [file],
+          data: [nftValues.file],
         });
 
         const signedPayloadReq = await fetch(`/api/mint`, {
           method: "POST",
           body: JSON.stringify({
             address,
-            name,
-            description,
+            name: nftValues.name,
+            description: nftValues.description,
             image: uris[0],
+            attributes: nftValues.attributes,
           }),
         });
 
@@ -78,35 +73,103 @@ const MintPage: NextPage = () => {
           console.log(error);
         }
       } finally {
-        setCreatingListing(false);
+        setMinting(false);
       }
     },
-    [address, nftCollection, file, upload, router, isMismatched, switchNetwork, toast]
+    [address, nftCollection, upload, router, isMismatched, switchNetwork, toast]
   );
-
-  const handleUploadFile = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFile(e.target.files[0]);
-    }
-  }, []);
 
   return (
     <Container className="m-10">
-      <h1 className="w-full text-center my-8 text-2xl text-gray-700 dark:text-white">Upload your NFT:</h1>
-      <Form onSubmit={(e) => handleMinNft(e)}>
-        <Form.Group>
-          <Form.File file={file} handleUploadFile={handleUploadFile} />
-        </Form.Group>
-        <Form.Group>
-          <Form.Control type="text" name="name" placeholder="Name" />
-        </Form.Group>
-        <Form.Group>
-          <Form.Control type="text" name="description" placeholder="Description" />
-        </Form.Group>
-        <Button className="mt-8" type="submit" disabled={creatingListing}>
-          {creatingListing ? "Loading..." : "Mint"}
-        </Button>
-      </Form>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={mintSchema}
+        onSubmit={(values) => {
+          handleMinNft(values);
+        }}
+      >
+        {({ values, setFieldValue }) => (
+          <FormikForm>
+            <Form.Container>
+              <h1 className="w-full my-8 text-2xl text-gray-700 dark:text-white">Mint NFT</h1>
+              <Form.Group>
+                <Form.Upload name="file" uploadValue={values.file} formats={SUPPORTED_FORMATS} />
+                <Form.ErrorMessage className="col-span-12" name="file" />
+              </Form.Group>
+              <Form.Group>
+                <Form.Field className="col-span-12" name="name" placeholder="Name" />
+                <Form.ErrorMessage className="col-span-12" name="name" />
+              </Form.Group>
+              <Form.Group>
+                <Form.TextArea className="col-span-12" name="description" rows={6} placeholder="Description" />
+                <Form.ErrorMessage className="col-span-12" name="description" />
+              </Form.Group>
+            </Form.Container>
+            <Form.Container>
+              <FieldArray name="attributes">
+                {({ remove, push }) => (
+                  <>
+                    <Form.Group className="place-items-end">
+                      <Button
+                        className="col-span-12"
+                        size="sm"
+                        variant="secondary"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setFieldValue("attributes", [attrInitialValues]);
+                        }}
+                      >
+                        Reset
+                      </Button>
+                    </Form.Group>
+                    {values.attributes.map((friend, index) => (
+                      <Form.Group key={index} className="gap-x-3">
+                        <Form.Col col="5">
+                          <Form.Field name={`attributes.${index}.trait_type`} placeholder="trait_type" type="text" />
+                        </Form.Col>
+                        <Form.Col col="6">
+                          <Form.Field name={`attributes.${index}.value`} placeholder="value" type="text" />
+                        </Form.Col>
+                        <Form.Col className="self-center place-self-end">
+                          <Button className="col-span-1" size="sm" variant="secondary" onClick={() => remove(index)}>
+                            X
+                          </Button>
+                        </Form.Col>
+                        <Form.Col col="5">
+                          <Form.ErrorMessage name={`attributes.${index}.trait_type`} />
+                        </Form.Col>
+                        <Form.Col col="6">
+                          <Form.ErrorMessage name={`attributes.${index}.value`} />
+                        </Form.Col>
+                      </Form.Group>
+                    ))}
+                    <Form.Group className="place-items-start">
+                      <Button
+                        className="col-span-12"
+                        size="sm"
+                        variant="success"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          push({ trait_type: "", value: "" });
+                        }}
+                      >
+                        + Add Row
+                      </Button>
+                    </Form.Group>
+                  </>
+                )}
+              </FieldArray>
+            </Form.Container>
+            <Form.Container>
+              <Form.Group className="place-items-center">
+                <Button className="col-span-12" type="submit">
+                  {minting ? "Loading..." : "Submit"}
+                </Button>
+              </Form.Group>
+            </Form.Container>
+          </FormikForm>
+        )}
+      </Formik>
     </Container>
   );
 };

@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function server(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { address, name, image, description } = JSON.parse(req.body);
+    const { address, name, image, description, attributes } = JSON.parse(req.body);
 
     if (req.method !== "POST") {
       throw new Error("Icorrect request method");
@@ -23,6 +23,7 @@ export default async function server(req: NextApiRequest, res: NextApiResponse) 
         name: name as string,
         image: image as string,
         description: description as string,
+        attributes: attributes as [],
       },
     });
 
