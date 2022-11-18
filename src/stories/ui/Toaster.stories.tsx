@@ -30,16 +30,13 @@ export default {
   },
 } as ComponentMeta<typeof ToastProvider>;
 
-const Template: ComponentStory<typeof ToastProvider> = (args) => {
-  console.log(args);
-  return (
-    <ToastProvider {...args}>
-      <div className="flex justify-center items-center w-full h-screen">
-        <PushToaster />
-      </div>
-    </ToastProvider>
-  );
-};
+const Template: ComponentStory<typeof ToastProvider> = (args) => (
+  <ToastProvider {...args}>
+    <div className="flex justify-center items-center w-full h-screen">
+      <PushToaster />
+    </div>
+  </ToastProvider>
+);
 
 export const Default = Template.bind({});
 Default.args = {

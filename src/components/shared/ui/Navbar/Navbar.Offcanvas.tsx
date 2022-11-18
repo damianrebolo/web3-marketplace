@@ -14,7 +14,6 @@ export const NavbarOffCanvas: React.FC<Props> = ({ children }) => {
     toggle
       ? document?.querySelector("body")?.classList.add("disable-overflow")
       : document?.querySelector("body")?.classList.remove("disable-overflow");
-    console.log(toggle);
   }, [toggle]);
 
   return (
