@@ -1,7 +1,8 @@
-import { cva, type VariantProps } from "cva";
+import { cx, cva, type VariantProps } from "cva";
 import { ReactNode } from "react";
 
 import { CardBody } from "./Card.Body";
+import { CardHeader } from "./Card.Header";
 import { CardImage } from "./Card.Image";
 
 interface Props {
@@ -18,7 +19,7 @@ const cardCva = cva("overflow-hidden", {
       danger: "bg-red-500",
       warning: "bg-yellow-500",
       info: "bg-sky-500",
-      dark: "bg-black",
+      dark: "bg-gray-700",
       light: "bg-zinc-100",
     },
     border: {
@@ -63,13 +64,14 @@ const cardCva = cva("overflow-hidden", {
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardCva> {}
 
-const Card: React.FC<CardProps> = ({ bg, border, text, rounded, shadow, children, ...props }) => (
-  <div className={cardCva({ bg, border, text, rounded, shadow })} {...props}>
+const Card: React.FC<CardProps> = ({ bg, border, text, rounded, shadow, children, className, ...props }) => (
+  <div className={cx(cardCva({ bg, border, text, rounded, shadow }), className)} {...props}>
     {children}
   </div>
 );
 
 export default Object.assign(Card, {
+  Header: CardHeader,
   Body: CardBody,
   Image: CardImage,
 });
