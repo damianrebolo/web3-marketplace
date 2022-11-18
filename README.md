@@ -13,6 +13,17 @@ I implement the following features:
 - Allow users to mint with signature.
 - Allow users to **buy** our NFTs.
 
+### How to use it
+
+You will need any wallet connected to Goerli chain and some ETH to pay the transactions:
+
+- Head to [**Demo Link**](https://web3-portfolio-ochre.vercel.app/)
+- Head to NFT Collection page
+- Click Mint button to add a new NFT to the collection
+- Head to Listings page
+- Click Create Listing, select the NFT uploaded before and set a price to list the NFT within the Marketplace
+- Head home page and click on the NFT to se the details or buy the asset.
+
 ### Tools
 
 - [**thirdweb Marketplace**](https://portal.thirdweb.com/contracts/marketplace): to facilitate the listing of NFTs and enable users to buy the NFTs on the marketplace.
