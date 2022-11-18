@@ -3,13 +3,26 @@
 ## Marketplace
 
 ![](/assets/ducks-portfolio.png)
+[**Demo Link**](https://web3-portfolio-ochre.vercel.app/)
 
 ### Introduction
 
 I implement the following features:
 
-- A marketplace where we can list NFTs for **direct sale**.
+- A marketplace where we can mint and list NFTs for **direct sale**.
+- Allow users to mint with signature.
 - Allow users to **buy** our NFTs.
+
+### How to use it
+
+You will need any wallet connected to Goerli chain and some ETH to pay the transactions:
+
+- Head to [**Demo Link**](https://web3-portfolio-ochre.vercel.app/)
+- Head to NFT Collection page
+- Click Mint button to add a new NFT to the collection
+- Head to Listings page
+- Click Create Listing, select the NFT uploaded before and set a price to list the NFT within the Marketplace
+- Head home page and click on the NFT to se the details or buy the asset.
 
 ### Tools
 
