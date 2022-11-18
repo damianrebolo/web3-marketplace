@@ -93,7 +93,8 @@ const CreateListingPage: NextPage<CreateListingPageProps> = ({ nfts }) => {
                           }`}
                           type="image"
                           src={nft.metadata.image as string}
-                          onClick={() => {
+                          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                            e.preventDefault();
                             setFieldValue("nftId", nft.metadata.id);
                           }}
                           width="90"
