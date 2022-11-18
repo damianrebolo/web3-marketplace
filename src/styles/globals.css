@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-
+@layer components {
+  .disable-overflow {
+    @apply overflow-hidden;
+  }
+}
 @layer base {
     html,
     body,
