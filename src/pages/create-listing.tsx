@@ -13,7 +13,7 @@ import Form from "components/shared/ui/Form";
 import { useToast } from "components/shared/core/Toaster/ToasterProvider";
 
 import { initialValues, listingSchema } from "constants/create-listing";
-import { OwnedNfts } from "components/pages/create-listing";
+import { OwnedNfts } from "components/shared/core";
 
 interface CreateListingPageProps {
   nfts: NFT[];
