@@ -1,4 +1,4 @@
-import { ReactNode, useContext } from "react";
+import { ReactNode, useContext, useEffect } from "react";
 import OffCanvas from "../OffCanvas";
 
 import NavbarContext, { NavbarContextType } from "./NavbarContext";
@@ -9,6 +9,13 @@ interface Props {
 
 export const NavbarOffCanvas: React.FC<Props> = ({ children }) => {
   const { toggle, setToggle } = useContext(NavbarContext) as NavbarContextType;
+
+  useEffect(() => {
+    toggle
+      ? document?.querySelector("body")?.classList.add("disable-overflow")
+      : document?.querySelector("body")?.classList.remove("disable-overflow");
+    console.log(toggle);
+  }, [toggle]);
 
   return (
     <OffCanvas toggle={toggle} setToggle={setToggle}>
