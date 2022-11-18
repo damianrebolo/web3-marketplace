@@ -3,12 +3,14 @@
 ## Marketplace
 
 ![](/assets/ducks-portfolio.png)
+[**Demo Link**](https://web3-portfolio-ochre.vercel.app/)
 
 ### Introduction
 
 I implement the following features:
 
-- A marketplace where we can list NFTs for **direct sale**.
+- A marketplace where we can mint and list NFTs for **direct sale**.
+- Allow users to mint with signature.
 - Allow users to **buy** our NFTs.
 
 ### Tools
