@@ -13,6 +13,7 @@ import { cutAddress } from "utils";
 import { FavouriteIcon } from "components/shared/icons";
 import { BigNumber } from "ethers";
 import { DirectListing, ThirdwebSDK } from "@thirdweb-dev/sdk";
+import Card from "components/shared/ui/Card";
 
 interface Props {
   listing: DirectListing;
@@ -21,7 +22,6 @@ interface Props {
 const ListingsPage: NextPage<Props> = ({ listing }) => {
   const [buying, setBuying] = useState(false);
   const router = useRouter();
-  const { id } = router.query;
 
   const isMismatched = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
@@ -67,6 +67,7 @@ const ListingsPage: NextPage<Props> = ({ listing }) => {
       setBuying(false);
     }
   };
+
   return (
     <>
       <Head>
@@ -76,13 +77,8 @@ const ListingsPage: NextPage<Props> = ({ listing }) => {
       <Container className="m-10">
         <div className="grid grid-cols-1 sm:grid-cols-7 gap-6 text-gray-700 dark:text-white">
           <div className="col-span-3 flex flex-col gap-5">
-            <div className="flex flex-col bg-gray-200 dark:bg-gray-700 border border-gray-400 rounded-lg overflow-hidden">
-              <div className="flex justify-between items-center p-3">
-                <span className="font-semibold">Chain: Goerli</span>
-                <Button variant="secondary" onClick={() => {}}>
-                  <FavouriteIcon />
-                </Button>
-              </div>
+            <Card bg="dark" text="white" className="flex flex-col">
+              <Card.Header border={false}>Chain: Goerli</Card.Header>
               <Image
                 src={listing?.asset.image as string}
                 alt={listing?.asset.name as string}
@@ -90,19 +86,25 @@ const ListingsPage: NextPage<Props> = ({ listing }) => {
                 height={500}
                 className="object-cover object-center"
               />
-            </div>
+            </Card>
+
             {listing?.asset?.attributes && (
-              <div className="flex flex-wrap justify-evenly items-center gap-2 p-5 bg-gray-200 dark:bg-gray-700 border border-gray-400 rounded-lg overflow-hidden">
-                {(listing?.asset?.attributes as []).map((attribute: any) => (
-                  <div
-                    className="flex flex-col items-center p-2 border border-cyan-700 rounded-md"
-                    key={attribute.value.toString()}
-                  >
-                    <span className="text-cyan-700 text-xs uppercase font-bold">{attribute.trait_type}</span>
-                    <span className="capitalize">{attribute.value}</span>
-                  </div>
-                ))}
-              </div>
+              <Card bg="dark" text="white">
+                <Card.Header>Properties</Card.Header>
+                <Card.Body className="flex flex-wrap justify-start items-center gap-2 overflow-hidden">
+                  {(listing?.asset?.attributes as []).map((attribute: any) => (
+                    <div
+                      className="flex flex-col p-2 border border-cyan-700 rounded-md"
+                      key={attribute.value.toString()}
+                    >
+                      <div className="flex flex-col flex-1 items-center">
+                        <span className="text-cyan-700 text-xs uppercase font-bold">{attribute.trait_type}</span>
+                        <span className="capitalize">{attribute.value}</span>
+                      </div>
+                    </div>
+                  ))}
+                </Card.Body>
+              </Card>
             )}
           </div>
           <div className="col-span-4 flex flex-col gap-5">
@@ -111,37 +113,47 @@ const ListingsPage: NextPage<Props> = ({ listing }) => {
               <span className="font-semibold text-blue-600">{cutAddress(listing?.sellerAddress as string)}</span>
             </div>
             <h1 className="text-5xl font-semibold">{listing?.asset.name}</h1>
-            <div className="text-lg p-5 bg-gray-200 dark:bg-gray-700 border border-gray-400 rounded-lg overflow-hidden">
-              {listing?.asset.description}
-            </div>
 
-            <div className="flex flex-col bg-gray-200 dark:bg-gray-700 p-5 gap-3 border border-gray-400 rounded-lg overflow-hidden">
-              <div className="">Sale ends {calcSalesEnds(listing?.secondsUntilEnd as BigNumber)}</div>
-              <div className="text-base text-gray-400">Current Price</div>
-              <div className="text-3xl font-semibold">{listing?.buyoutCurrencyValuePerToken.displayValue} ETH</div>
-              <div className="text-base text-gray-400">{`Quantity: ${listing?.quantity}`}</div>
-              <Button variant="light" onClick={() => onBuyNFT(listing?.id as string)} disabled={buying}>
-                {buying ? "Loading..." : "Buy Now"}
-              </Button>
-            </div>
-            <div className="flex flex-col gap-3 p-5 bg-gray-200 dark:bg-gray-700 border border-gray-400 rounded-lg overflow-hidden">
-              <div className="flex justify-between items-center">
-                <span>Contract Address</span>
-                <span>{cutAddress(listing?.assetContractAddress as string)}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>Token ID</span>
-                <span>{BigNumber.from(listing?.tokenId).toString()}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>Token Standard</span>
-                <span>ERC-721</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>Chain</span>
-                <span>Goerli</span>
-              </div>
-            </div>
+            <Card bg="dark" text="white">
+              <Card.Header>Description</Card.Header>
+              <Card.Body>{listing?.asset.description}</Card.Body>
+            </Card>
+
+            <Card bg="dark" text="white">
+              <Card.Body className="flex flex-col gap-3">
+                <div className="">Sale ends {calcSalesEnds(listing?.secondsUntilEnd as BigNumber)}</div>
+                <div className="text-base text-gray-400">Current Price</div>
+                <div className="text-3xl font-semibold">{listing?.buyoutCurrencyValuePerToken.displayValue} ETH</div>
+                <div className="text-base text-gray-400">{`Quantity: ${BigNumber.from(listing?.quantity)}`}</div>
+                {BigNumber.from(listing?.quantity).toNumber() > 0 && (
+                  <Button variant="light" onClick={() => onBuyNFT(listing?.id as string)} disabled={buying}>
+                    {buying ? "Loading..." : "Buy Now"}
+                  </Button>
+                )}
+              </Card.Body>
+            </Card>
+
+            <Card bg="dark" text="white">
+              <Card.Header>Details</Card.Header>
+              <Card.Body className="flex flex-col gap-3">
+                <div className="flex justify-between items-center">
+                  <span>Contract Address</span>
+                  <span>{cutAddress(listing?.assetContractAddress as string)}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>Token ID</span>
+                  <span>{BigNumber.from(listing?.tokenId).toString()}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>Token Standard</span>
+                  <span>ERC-721</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>Chain</span>
+                  <span>Goerli</span>
+                </div>
+              </Card.Body>
+            </Card>
           </div>
         </div>
       </Container>

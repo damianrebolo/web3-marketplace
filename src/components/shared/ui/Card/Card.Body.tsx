@@ -1,11 +1,12 @@
-import { ReactNode } from "react";
+import { cx, cva, type VariantProps } from "cva";
 
-interface Props {
-  children: ReactNode;
-}
+const cardBodyCva = cva("p-6", undefined);
 
-export const CardBody: React.FC<Props> = ({ children }) => (
-  <div className="p-6 hover:bg-indigo-50 hover:text-black transition duration-300 ease-in">{children}</div>
+export interface CardBodyProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardBodyCva> {}
+
+export const CardBody: React.FC<CardBodyProps> = ({ className, ...props }) => (
+  <div className={cx(cardBodyCva(), className)} {...props} />
 );
+// <div className="p-6 hover:bg-indigo-50 hover:text-black transition duration-300 ease-in">{children}</div>
 
 CardBody.displayName = "Card.Body";
